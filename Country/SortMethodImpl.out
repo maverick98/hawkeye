@@ -1,0 +1,4 @@
+
+@SubTask(name = "sortName ", sequence = 1, ignoreException = false, hawkParam = "var innings,var name ")public     Country [] sortName (Object ... args ){if(args == null || args.length == 0){return null;}Set<Country> input = null;input  = (Set<Country> ) args[0];Set<Country> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getCountrys().getAll();}Country []  tmpArray = tmpSet.toArray(new Country[] {});Arrays.sort(tmpArray,new Comparator(){@Override
+public int compare(Object o1, Object o2) {Country thisCountry = (Country) o1;Country thatCountry = (Country) o2;return thisCountry.getName ().compareTo(thatCountry.getName ());}});return tmpArray;}
+

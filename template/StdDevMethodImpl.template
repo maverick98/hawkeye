@@ -1,0 +1,27 @@
+function main()
+{
+
+for(var i = 1 ; i<= #SIZE#;i = i+1)
+{
+
+
+      var j = i-1
+      echo "START"+j+"START"
+>	@SubTask(name = "stddev#FIELD# ", sequence = 1, ignoreException = false, hawkParam = "var innings ")
+>	public     double stddev#FIELD# (Object ... args ){
+>
+>		
+>		double variance = this.variance#FIELD# (args);
+>		double stddev = (new BigDecimal(Math.sqrt(variance))).setScale(2, RoundingMode.HALF_UP).doubleValue();
+>
+>		return stddev;
+>	}
+      echo ""
+      echo "END"+j+"END"
+
+>
+>
+}
+
+}
+

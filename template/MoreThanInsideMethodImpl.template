@@ -1,0 +1,57 @@
+function main()
+{
+
+for(var i = 1 ; i<= #SIZE#;i = i+1)
+{
+
+
+      var j = i-1
+      echo "START"+j+"START"
+>	@SubTask(name = "moreThan#TYPEINSIDEFIELD# ", sequence = 1, ignoreException = false, hawkParam = "var innings ,var #INSIDEFIELDINSTANCE# ")
+>	public      Set<#CLAZZ#> moreThan#TYPEINSIDEFIELD# ( Object ... args ){
+>
+>		
+>		Set<#CLAZZ#> input = null;
+>
+>		#INSIDETYPE#  #INSIDEFIELDINSTANCE# = null;
+>
+>		if(args == null || args.length == 0){
+>			return null;		
+>		}
+>
+>		if(args.length == 2){
+>			if ( args[0] != null){
+>
+>		        	input  = (Set<#CLAZZ#> ) args[0];  
+>		
+>			}
+>			if ( args[1] != null){
+>
+>				#INSIDEFIELDINSTANCE# = ( #INSIDETYPE# ) args[1];
+>		
+>			}
+>		}else if(args.length == 1){
+>
+>			#INSIDEFIELDINSTANCE# = ( #INSIDETYPE# ) args[0];
+>
+>		}
+>		
+>
+>		#TYPE#  #FIELDINSTANCE#  = new #TYPE# ();
+>
+>		#FIELDINSTANCE# . set#INSIDEFIELD# ( #INSIDEFIELDINSTANCE# );
+>		
+>		return moreThan#FIELD# (input , #FIELDINSTANCE# );		
+>
+>
+>		
+>	}
+      echo ""
+      echo "END"+j+"END"
+
+>
+>
+}
+
+}
+

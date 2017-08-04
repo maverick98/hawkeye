@@ -1,0 +1,98 @@
+function main()
+{
+exec  createCopyrightInfo()
+
+>package org.cricket.hawkeye.db;
+>import java.util.Set;
+>import java.util.TreeSet;
+>import org.hawk.module.annotation.SubTask;
+>import java.util.Arrays;
+>import java.util.Comparator;
+>import java.math.BigDecimal;
+>import java.math.RoundingMode;
+>import org.hawk.module.plugin.HawkPluginModule;
+>import org.common.di.ScanMe;
+>
+>/**
+> *
+> * @author msahu
+> */
+>@ScanMe(true)
+>public class #CLAZZ#Fetcher extends HawkPluginModule
+>{
+>	
+>        @Override
+echo ""
+>        public String getPluginName() {
+>         return "hawk-eye";
+>        }
+>
+>	public #CLAZZ#s get#CLAZZ#s() {
+>        	return #CLAZZ#s .getInstance();
+>    	}
+>	@Override
+echo ""
+>	public String toString() {
+>		return this.getName();
+>	}
+>
+>        public String getName() {
+>        	return "#CLAZZ#Fetcher";
+>        }
+>
+>        @Override
+echo ""
+>        public boolean startUp() {
+>        	throw new UnsupportedOperationException("Not supported yet.");
+>        }
+>
+>        @Override
+echo ""
+>        public boolean reset() {
+>        	throw new UnsupportedOperationException("Not supported yet.");
+>        }
+>
+echo `exec  dumpStr("#CLAZZ#\\AfterMethodImpl.out")`
+echo `exec  dumpStr("#CLAZZ#\\LessThanInsideMethodImpl.out")`
+echo `exec  dumpStr("#CLAZZ#\\MoreThanMethodImpl.out")`
+echo `exec  dumpStr("#CLAZZ#\\AvgMethodImpl.out")`
+echo `exec  dumpStr("#CLAZZ#\\LessThanMethodImpl.out")`
+echo `exec  dumpStr("#CLAZZ#\\SortMethodImpl.out")`
+echo `exec  dumpStr("#CLAZZ#\\BeforeMethodImpl.out")`
+echo `exec  dumpStr("#CLAZZ#\\LikeInsideMethodImpl.out")`
+echo `exec  dumpStr("#CLAZZ#\\StdDevMethodImpl.out")`
+echo `exec  dumpStr("#CLAZZ#\\BottomMethodImpl.out")`
+echo `exec  dumpStr("#CLAZZ#\\LikeMethodImpl.out")`
+echo `exec  dumpStr("#CLAZZ#\\SumMethodImpl.out")`
+echo `exec  dumpStr("#CLAZZ#\\CountMethodImpl.out")`
+echo `exec  dumpStr("#CLAZZ#\\MaxMethodImpl.out")`
+echo `exec  dumpStr("#CLAZZ#\\TopMethodImpl.out")`
+echo `exec  dumpStr("#CLAZZ#\\EqualInsideMethodImpl.out")`
+echo `exec  dumpStr("#CLAZZ#\\MinMethodImpl.out")`
+echo `exec  dumpStr("#CLAZZ#\\VarianceMethodImpl.out")`
+echo `exec  dumpStr("#CLAZZ#\\EqualMethodImpl.out")`
+echo `exec  dumpStr("#CLAZZ#\\MoreThanInsideMethodImpl.out")`
+	
+
+>
+>
+>	
+>
+>}
+>
+
+}
+
+
+function createCopyrightInfo()
+{	 
+>
+>
+>	/**This file was generated at #DATE# 
+>	  *Don't you dare edit this file.You will regret it if you do!!! 
+>	  * This file is part of hawkeye 
+>	  * CopyLeft (C) 2012-2013 Manoranjan Sahu, All Rights are left.
+>	  *
+>	  */
+}
+

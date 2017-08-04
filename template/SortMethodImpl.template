@@ -1,0 +1,62 @@
+function main()
+{
+
+for(var i = 1 ; i<= #SIZE#;i = i+1)
+{
+
+
+      var j = i-1
+      echo "START"+j+"START"
+>	@SubTask(name = "sort#FIELD# ", sequence = 1, ignoreException = false, hawkParam = "var innings,var #FIELDINSTANCE# ")
+>	public     #CLAZZ# [] sort#FIELD# (Object ... args ){
+>
+>		if(args == null || args.length == 0){
+>			return null;		
+>		}
+>
+>		Set<#CLAZZ#> input = null;
+>		
+>		
+>		input  = (Set<#CLAZZ#> ) args[0];  
+>
+>		
+>
+>
+>		Set<#CLAZZ#> tmpSet = null;
+>
+>		if(input != null && !input.isEmpty() ){
+>			
+>			tmpSet = input;
+>		}else{
+>			tmpSet = this.get#CLAZZ#s().getAll();
+>		}
+>		#CLAZZ# []  tmpArray = tmpSet.toArray(new #CLAZZ#[] {});
+>		Arrays.sort
+>                        (
+>                            tmpArray,
+>                            new Comparator(){
+>
+>                                @Override
+echo ""
+>                                public int compare(Object o1, Object o2) {
+>                                    #CLAZZ# this#CLAZZ# = (#CLAZZ#) o1;
+>                                    #CLAZZ# that#CLAZZ# = (#CLAZZ#) o2;
+>                                    return this#CLAZZ#.get#FIELD# ().compareTo(that#CLAZZ#.get#FIELD# ());
+>                                }
+>                    
+>                            }
+>                        );
+>				
+>
+>		return tmpArray;
+>	}
+      echo ""
+
+      echo "END"+j+"END"
+
+>
+>
+}
+
+}
+

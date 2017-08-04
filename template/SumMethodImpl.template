@@ -1,0 +1,49 @@
+function main()
+{
+
+for(var i = 1 ; i<= #SIZE#;i = i+1)
+{
+
+
+      var j = i-1
+      echo "START"+j+"START"
+>	@SubTask(name = "sum#FIELD# ", sequence = 1, ignoreException = false, hawkParam = "var innings")
+>	public     int sum#FIELD# (Object ... args ){
+>
+>		Set<#CLAZZ#> input = null;
+>		
+>		if ( args[0] != null){
+>
+>                	input  = (Set<#CLAZZ#> ) args[0];  
+>		}
+>		
+>
+>		Set<#CLAZZ#> tmpSet = null;
+>
+>		if(input != null && !input.isEmpty() ){
+>			
+>			tmpSet = input;
+>		}else{
+>			tmpSet = this.get#CLAZZ#s().getAll();
+>		}
+>		
+>		Double total = 0.0;
+>
+>		for(#CLAZZ# inning : tmpSet){
+>			
+>			total = total+inning.get#FIELD# ();
+>
+>		}		
+>
+>		
+>		return total.intValue();
+>	}
+      echo ""
+      echo "END"+j+"END"
+
+>
+>
+}
+
+}
+

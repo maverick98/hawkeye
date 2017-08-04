@@ -1,0 +1,58 @@
+function main()
+{
+
+for(var i = 1 ; i<= #SIZE#;i = i+1)
+{
+
+
+      var j = i-1
+      echo "START"+j+"START"
+>	@SubTask(name = "variance#FIELD# ", sequence = 1, ignoreException = false, hawkParam = "var innings ")
+>	public    double variance#FIELD# (Object ... args ){
+>
+>		Set<#CLAZZ#> input = null;
+>		
+>		if ( args[0] != null){
+>
+>                	input  = (Set<#CLAZZ#> ) args[0];  
+>		}
+>		
+>
+>		Set<#CLAZZ#> tmpSet = null;
+>
+>		if(input != null && !input.isEmpty() ){
+>			
+>			tmpSet = input;
+>		}else{
+>			tmpSet = this.get#CLAZZ#s().getAll();
+>		}
+>		
+>		int i =0;
+>
+>		BigDecimal squaredTotal = BigDecimal.ZERO;
+>
+>		double sqauredTotalAvg = 0.0;
+>
+>		for (#CLAZZ# inning : tmpSet) {
+>
+>		    squaredTotal = squaredTotal.add(new BigDecimal(inning.get#FIELD# () * inning.get#FIELD# ()));
+>		    i++;
+>		}
+>
+>		if (i > 0) {
+>		    sqauredTotalAvg = squaredTotal.divide(new BigDecimal(i), 2, RoundingMode.HALF_UP).doubleValue();
+>		}
+>		double avg = this.avg#FIELD# (args);
+>		double variance =sqauredTotalAvg - (avg * avg);
+>
+>		return variance;
+>	}
+      echo ""
+      echo "END"+j+"END"
+
+>
+>
+}
+
+}
+

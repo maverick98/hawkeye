@@ -1,0 +1,64 @@
+
+@SubTask(name = "sortPlayer ", sequence = 1, ignoreException = false, hawkParam = "var innings,var player ")public     Inning [] sortPlayer (Object ... args ){if(args == null || args.length == 0){return null;}Set<Inning> input = null;input  = (Set<Inning> ) args[0];Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}Inning []  tmpArray = tmpSet.toArray(new Inning[] {});Arrays.sort(tmpArray,new Comparator(){@Override
+public int compare(Object o1, Object o2) {Inning thisInning = (Inning) o1;Inning thatInning = (Inning) o2;return thisInning.getPlayer ().compareTo(thatInning.getPlayer ());}});return tmpArray;}
+
+
+@SubTask(name = "sortRuns ", sequence = 1, ignoreException = false, hawkParam = "var innings,var runs ")public     Inning [] sortRuns (Object ... args ){if(args == null || args.length == 0){return null;}Set<Inning> input = null;input  = (Set<Inning> ) args[0];Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}Inning []  tmpArray = tmpSet.toArray(new Inning[] {});Arrays.sort(tmpArray,new Comparator(){@Override
+public int compare(Object o1, Object o2) {Inning thisInning = (Inning) o1;Inning thatInning = (Inning) o2;return thisInning.getRuns ().compareTo(thatInning.getRuns ());}});return tmpArray;}
+
+
+@SubTask(name = "sortMins ", sequence = 1, ignoreException = false, hawkParam = "var innings,var mins ")public     Inning [] sortMins (Object ... args ){if(args == null || args.length == 0){return null;}Set<Inning> input = null;input  = (Set<Inning> ) args[0];Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}Inning []  tmpArray = tmpSet.toArray(new Inning[] {});Arrays.sort(tmpArray,new Comparator(){@Override
+public int compare(Object o1, Object o2) {Inning thisInning = (Inning) o1;Inning thatInning = (Inning) o2;return thisInning.getMins ().compareTo(thatInning.getMins ());}});return tmpArray;}
+
+
+@SubTask(name = "sortBallFaced ", sequence = 1, ignoreException = false, hawkParam = "var innings,var ballFaced ")public     Inning [] sortBallFaced (Object ... args ){if(args == null || args.length == 0){return null;}Set<Inning> input = null;input  = (Set<Inning> ) args[0];Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}Inning []  tmpArray = tmpSet.toArray(new Inning[] {});Arrays.sort(tmpArray,new Comparator(){@Override
+public int compare(Object o1, Object o2) {Inning thisInning = (Inning) o1;Inning thatInning = (Inning) o2;return thisInning.getBallFaced ().compareTo(thatInning.getBallFaced ());}});return tmpArray;}
+
+
+@SubTask(name = "sortFours ", sequence = 1, ignoreException = false, hawkParam = "var innings,var fours ")public     Inning [] sortFours (Object ... args ){if(args == null || args.length == 0){return null;}Set<Inning> input = null;input  = (Set<Inning> ) args[0];Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}Inning []  tmpArray = tmpSet.toArray(new Inning[] {});Arrays.sort(tmpArray,new Comparator(){@Override
+public int compare(Object o1, Object o2) {Inning thisInning = (Inning) o1;Inning thatInning = (Inning) o2;return thisInning.getFours ().compareTo(thatInning.getFours ());}});return tmpArray;}
+
+
+@SubTask(name = "sortSixes ", sequence = 1, ignoreException = false, hawkParam = "var innings,var sixes ")public     Inning [] sortSixes (Object ... args ){if(args == null || args.length == 0){return null;}Set<Inning> input = null;input  = (Set<Inning> ) args[0];Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}Inning []  tmpArray = tmpSet.toArray(new Inning[] {});Arrays.sort(tmpArray,new Comparator(){@Override
+public int compare(Object o1, Object o2) {Inning thisInning = (Inning) o1;Inning thatInning = (Inning) o2;return thisInning.getSixes ().compareTo(thatInning.getSixes ());}});return tmpArray;}
+
+
+@SubTask(name = "sortStrikeRate ", sequence = 1, ignoreException = false, hawkParam = "var innings,var strikeRate ")public     Inning [] sortStrikeRate (Object ... args ){if(args == null || args.length == 0){return null;}Set<Inning> input = null;input  = (Set<Inning> ) args[0];Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}Inning []  tmpArray = tmpSet.toArray(new Inning[] {});Arrays.sort(tmpArray,new Comparator(){@Override
+public int compare(Object o1, Object o2) {Inning thisInning = (Inning) o1;Inning thatInning = (Inning) o2;return thisInning.getStrikeRate ().compareTo(thatInning.getStrikeRate ());}});return tmpArray;}
+
+
+@SubTask(name = "sortPositions ", sequence = 1, ignoreException = false, hawkParam = "var innings,var positions ")public     Inning [] sortPositions (Object ... args ){if(args == null || args.length == 0){return null;}Set<Inning> input = null;input  = (Set<Inning> ) args[0];Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}Inning []  tmpArray = tmpSet.toArray(new Inning[] {});Arrays.sort(tmpArray,new Comparator(){@Override
+public int compare(Object o1, Object o2) {Inning thisInning = (Inning) o1;Inning thatInning = (Inning) o2;return thisInning.getPositions ().compareTo(thatInning.getPositions ());}});return tmpArray;}
+
+
+@SubTask(name = "sortDismissalType ", sequence = 1, ignoreException = false, hawkParam = "var innings,var dismissalType ")public     Inning [] sortDismissalType (Object ... args ){if(args == null || args.length == 0){return null;}Set<Inning> input = null;input  = (Set<Inning> ) args[0];Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}Inning []  tmpArray = tmpSet.toArray(new Inning[] {});Arrays.sort(tmpArray,new Comparator(){@Override
+public int compare(Object o1, Object o2) {Inning thisInning = (Inning) o1;Inning thatInning = (Inning) o2;return thisInning.getDismissalType ().compareTo(thatInning.getDismissalType ());}});return tmpArray;}
+
+
+@SubTask(name = "sortInnings ", sequence = 1, ignoreException = false, hawkParam = "var innings,var innings ")public     Inning [] sortInnings (Object ... args ){if(args == null || args.length == 0){return null;}Set<Inning> input = null;input  = (Set<Inning> ) args[0];Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}Inning []  tmpArray = tmpSet.toArray(new Inning[] {});Arrays.sort(tmpArray,new Comparator(){@Override
+public int compare(Object o1, Object o2) {Inning thisInning = (Inning) o1;Inning thatInning = (Inning) o2;return thisInning.getInnings ().compareTo(thatInning.getInnings ());}});return tmpArray;}
+
+
+@SubTask(name = "sortOpposition ", sequence = 1, ignoreException = false, hawkParam = "var innings,var opposition ")public     Inning [] sortOpposition (Object ... args ){if(args == null || args.length == 0){return null;}Set<Inning> input = null;input  = (Set<Inning> ) args[0];Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}Inning []  tmpArray = tmpSet.toArray(new Inning[] {});Arrays.sort(tmpArray,new Comparator(){@Override
+public int compare(Object o1, Object o2) {Inning thisInning = (Inning) o1;Inning thatInning = (Inning) o2;return thisInning.getOpposition ().compareTo(thatInning.getOpposition ());}});return tmpArray;}
+
+
+@SubTask(name = "sortGround ", sequence = 1, ignoreException = false, hawkParam = "var innings,var ground ")public     Inning [] sortGround (Object ... args ){if(args == null || args.length == 0){return null;}Set<Inning> input = null;input  = (Set<Inning> ) args[0];Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}Inning []  tmpArray = tmpSet.toArray(new Inning[] {});Arrays.sort(tmpArray,new Comparator(){@Override
+public int compare(Object o1, Object o2) {Inning thisInning = (Inning) o1;Inning thatInning = (Inning) o2;return thisInning.getGround ().compareTo(thatInning.getGround ());}});return tmpArray;}
+
+
+@SubTask(name = "sortStartDate ", sequence = 1, ignoreException = false, hawkParam = "var innings,var startDate ")public     Inning [] sortStartDate (Object ... args ){if(args == null || args.length == 0){return null;}Set<Inning> input = null;input  = (Set<Inning> ) args[0];Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}Inning []  tmpArray = tmpSet.toArray(new Inning[] {});Arrays.sort(tmpArray,new Comparator(){@Override
+public int compare(Object o1, Object o2) {Inning thisInning = (Inning) o1;Inning thatInning = (Inning) o2;return thisInning.getStartDate ().compareTo(thatInning.getStartDate ());}});return tmpArray;}
+
+
+@SubTask(name = "sortOdi ", sequence = 1, ignoreException = false, hawkParam = "var innings,var odi ")public     Inning [] sortOdi (Object ... args ){if(args == null || args.length == 0){return null;}Set<Inning> input = null;input  = (Set<Inning> ) args[0];Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}Inning []  tmpArray = tmpSet.toArray(new Inning[] {});Arrays.sort(tmpArray,new Comparator(){@Override
+public int compare(Object o1, Object o2) {Inning thisInning = (Inning) o1;Inning thatInning = (Inning) o2;return thisInning.getOdi ().compareTo(thatInning.getOdi ());}});return tmpArray;}
+
+
+@SubTask(name = "sortWasOut ", sequence = 1, ignoreException = false, hawkParam = "var innings,var wasOut ")public     Inning [] sortWasOut (Object ... args ){if(args == null || args.length == 0){return null;}Set<Inning> input = null;input  = (Set<Inning> ) args[0];Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}Inning []  tmpArray = tmpSet.toArray(new Inning[] {});Arrays.sort(tmpArray,new Comparator(){@Override
+public int compare(Object o1, Object o2) {Inning thisInning = (Inning) o1;Inning thatInning = (Inning) o2;return thisInning.getWasOut ().compareTo(thatInning.getWasOut ());}});return tmpArray;}
+
+
+@SubTask(name = "sortBatted ", sequence = 1, ignoreException = false, hawkParam = "var innings,var batted ")public     Inning [] sortBatted (Object ... args ){if(args == null || args.length == 0){return null;}Set<Inning> input = null;input  = (Set<Inning> ) args[0];Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}Inning []  tmpArray = tmpSet.toArray(new Inning[] {});Arrays.sort(tmpArray,new Comparator(){@Override
+public int compare(Object o1, Object o2) {Inning thisInning = (Inning) o1;Inning thatInning = (Inning) o2;return thisInning.getBatted ().compareTo(thatInning.getBatted ());}});return tmpArray;}
+

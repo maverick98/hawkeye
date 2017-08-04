@@ -1,0 +1,70 @@
+function main()
+{
+
+for(var i = 1 ; i<= #SIZE#;i = i+1)
+{
+
+
+      var j = i-1
+      echo "START"+j+"START"
+>	@SubTask(name = "before#FIELD# ", sequence = 1, ignoreException = false, hawkParam = "var innings,var #FIELDINSTANCE# ")
+>	public     Set<#CLAZZ#> before#FIELD# (Object ... args ){
+>
+>
+>		Set<#CLAZZ#> input = null;
+>		
+>		#TYPE#  #FIELDINSTANCE# = null;
+>
+>
+>
+>		if(args == null || args.length == 0){
+>			return null;		
+>		}
+>
+>		if(args.length == 2){
+>			if ( args[0] != null){
+>
+>		        	input  = (Set<#CLAZZ#> ) args[0];  
+>		
+>			}
+>			if ( args[1] != null){
+>
+>				#FIELDINSTANCE# = ( #TYPE# ) args[1];
+>		
+>			}
+>		}else if(args.length == 1){
+>
+>			#FIELDINSTANCE# = ( #TYPE# ) args[0];
+>
+>		}
+>		Set<#CLAZZ#> result = new TreeSet<#CLAZZ#>();
+>
+>		for(#CLAZZ# #CLAZZINSTANCE# : this.get#CLAZZ#s().getAll())
+>		{
+>			
+>			if(#CLAZZINSTANCE#.#GETFIELD# ().before(#FIELDINSTANCE# ))
+>			{
+>
+>				result.add(#CLAZZINSTANCE#);	
+>			}
+>		}
+>
+>		if(input != null && !input.isEmpty() ){
+>			if(input.retainAll(result)){
+>				result = input;
+>			}else{
+>				result = new TreeSet<#CLAZZ#>();
+>			}
+>			
+>		}
+>		return result;
+>	}
+      echo ""
+      echo "END"+j+"END"
+
+>
+>
+}
+
+}
+

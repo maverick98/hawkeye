@@ -1,0 +1,29 @@
+function main()
+{
+
+for(var i = 1 ; i<= #SIZE#;i = i+1)
+{
+
+
+      var j = i-1
+      echo "START"+j+"START"
+>	@SubTask(name = "max#FIELD# ", sequence = 1, ignoreException = false, hawkParam = "var innings,var #FIELDINSTANCE# ")
+>	public     #CLAZZ# max#FIELD# (Object ... args ){
+>
+>		#CLAZZ# []  tmpArray = this.sort#FIELD# (args);
+>		if(tmpArray == null){
+>			return null;
+>		}		
+>
+>                #CLAZZ# result = tmpArray[tmpArray.length -1 ];
+>		return result;
+>	}
+      echo ""
+      echo "END"+j+"END"
+
+>
+>
+}
+
+}
+
