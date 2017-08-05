@@ -46,11 +46,7 @@ public class NGCogegenerator {
     public void generate() {
         try {
             HawkConfigHelper.configure();
-            String [] names = AppContainer.getInstance().getAppContext().getBeanDefinitionNames();
-            for(String name:names){
-            System.out.println(name);
-            }
-           
+            
                
             System.out.println("-----------");
             ICodeTemplateProvider codeTemplateProvider = new DefaultCodeTemplateProvider();

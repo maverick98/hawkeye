@@ -60,7 +60,9 @@ public abstract class AbstractPlayerDAO {
             found = true;
 
         }
-
+        if(!found){
+            System.out.println("Either player matcher regEx is wrong , or data provider has different expectation");
+        }
         return found;
     }
 

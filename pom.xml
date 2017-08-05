@@ -4,7 +4,7 @@
     <groupId>org</groupId>
     <artifactId>hawkeye</artifactId>
     <packaging>jar</packaging>
-    <version>1.0</version>
+    <version>17.8</version>
     <name>hawkeye</name>
     <url>http://maven.apache.org</url>
     <build>
@@ -81,25 +81,21 @@
             <version>2.24.0</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>org</groupId>
-            <artifactId>codegen</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+
         <dependency>
             <groupId>org.hawkframework</groupId>
             <artifactId>hawk-commons-util</artifactId>
-            <version>17.05</version>
+            <version>17.08</version>
         </dependency>
         <dependency>
             <groupId>org.hawkframework</groupId>
             <artifactId>hawk-commons-event</artifactId>
-            <version>17.05</version>
+            <version>17.08</version>
         </dependency>
                <dependency>
             <groupId>org.hawkframework</groupId>
             <artifactId>hawk-core</artifactId>
-            <version>17.06</version>
+            <version>17.08</version>
         </dependency>
       
       

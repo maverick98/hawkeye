@@ -65,7 +65,7 @@ public class CricDataDownloadServiceImpl implements ICricDataDownloadService {
     ICricDataDownloadControlService cricDataDownloadControlService;
 
      public  IHawkEyeExecutionContext getHawkEyeExecutionContext() {
-        return AppContainer.getInstance().getBean("hawkEyeExecutionContext", IHawkEyeExecutionContext.class);
+        return AppContainer.getInstance().getBean( IHawkEyeExecutionContext.class);
     }
     public ICricDataDownloadControlService getCricDataDownloadControlService() {
         return cricDataDownloadControlService;

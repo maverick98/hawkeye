@@ -1,4 +1,0 @@
-
-@SubTask(name = "sortName ", sequence = 1, ignoreException = false, hawkParam = "var innings,var name ")public     Ground [] sortName (Object ... args ){if(args == null || args.length == 0){return null;}Set<Ground> input = null;input  = (Set<Ground> ) args[0];Set<Ground> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getGrounds().getAll();}Ground []  tmpArray = tmpSet.toArray(new Ground[] {});Arrays.sort(tmpArray,new Comparator(){@Override
-public int compare(Object o1, Object o2) {Ground thisGround = (Ground) o1;Ground thatGround = (Ground) o2;return thisGround.getName ().compareTo(thatGround.getName ());}});return tmpArray;}
-

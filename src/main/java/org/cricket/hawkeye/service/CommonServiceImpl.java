@@ -168,7 +168,7 @@ public class CommonServiceImpl implements ICommonService{
         return (input == null || input.isEmpty());
     }
      public  IHawkEyeExecutionContext getHawkEyeExecutionContext() {
-        return AppContainer.getInstance().getBean("hawkEyeExecutionContext", IHawkEyeExecutionContext.class);
+        return AppContainer.getInstance().getBean( IHawkEyeExecutionContext.class);
     }
 
     @Override

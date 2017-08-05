@@ -4,7 +4,7 @@
         <classpath>
             <jar>
                 <desc>espnhawkeye</desc>
-                <path>espnhawkeye-1.0.jar</path>
+                <path>espnhawkeye-17.8.jar</path>
             </jar>
         </classpath>
         <cricDataDAO>org.espn.hawkeye.dao.ESPNCricInfoDAOImpl</cricDataDAO>
@@ -22,7 +22,7 @@
             <name>espn hawk-eye</name>
             <releaseDate>2016-02-25T11:55:45.425+05:30</releaseDate>
             <version>
-                <version>1.0</version>
+                <version>17.8</version>
             </version>
             <website>http://www.espncricinfo.com</website>
         </software>

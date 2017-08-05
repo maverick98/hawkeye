@@ -117,7 +117,7 @@ public class DefaultCodeTemplateProvider implements ICodeTemplateProvider {
         List<IFetcherMethodImpl> impls = FetcherMethodImplFactory.create(sourceVO);
         if (impls != null) {
             for (IFetcherMethodImpl fetcherMethodImpl : impls) {
-                ITemplateService templateService = (ITemplateService)AppContainer.getInstance().getBean("templateServiceImpl");
+                ITemplateService templateService = (ITemplateService)AppContainer.getInstance().getBean(ITemplateService.class);
                 try {
                     templateService.toFile(fetcherMethodImpl.getFetcherTemplate());
                 } catch (Exception ex) {

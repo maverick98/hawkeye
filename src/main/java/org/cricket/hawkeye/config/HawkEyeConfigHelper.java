@@ -19,6 +19,7 @@ import org.cricket.hawkeye.dao.ICricDataDAO;
 import org.cricket.hawkeye.exception.HawkEyeException;
 import org.cricket.hawkeye.plugin.HawkEyePluginConfiguration;
 import org.cricket.hawkeye.plugin.HawkEyeSpringConfig;
+import org.hawk.config.clazzloader.ClassPathHacker;
 import org.hawk.plugin.metadata.Jar;
 import org.hawk.xml.XMLUtil;
 
@@ -106,6 +107,11 @@ public class HawkEyeConfigHelper  {
 
     private ICricDataDAO getProviderCricDataDAO(HawkEyePluginConfiguration hawkEyePluginConfig) {
         String cricDataDAOStr = hawkEyePluginConfig.getCricketDataProvider().getCricDataDAO();
+        try {
+            ClassPathHacker.addFile(hawkEyePluginConfig.getCricketDataProvider().getClasspath().getJar().get(0).getPath());
+        } catch (Exception ex) {
+            Logger.getLogger(HawkEyeConfigHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
         ICricDataDAO cricDataDAO = null;
         try {
             Class cricDataDAOClazz;
