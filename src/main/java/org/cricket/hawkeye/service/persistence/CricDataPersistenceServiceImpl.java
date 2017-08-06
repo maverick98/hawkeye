@@ -35,15 +35,12 @@ import org.cricket.hawkeye.db.Player;
 import org.cricket.hawkeye.db.Players;
 import org.cricket.hawkeye.service.persistence.exception.PersistenceServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 
 /**
  *
  * @author manoranjan
  */
-//@Component("cricDataPersistenceService")
-//@Qualifier("default")
+
 public class CricDataPersistenceServiceImpl implements ICricDataPersistenceService {
 
     private static final Pattern inningsPattern = Pattern.compile("<caption>Innings by innings list</caption>");
@@ -59,17 +56,17 @@ public class CricDataPersistenceServiceImpl implements ICricDataPersistenceServi
 
     @Override
     public boolean persist() throws PersistenceServiceException {
-        System.out.println("persisting");
+       
         List<String> countries;
         Players playersTab =  Players.getInstance();
         Innings inningsTab =  Innings.getInstance();
         Grounds groundsTab =  Grounds.getInstance();
         Countrys countrysTab =  Countrys.getInstance();
-        System.out.println("go there");
+       
         if(playersTab.getAll() != null && inningsTab.getAll() != null && groundsTab.getAll()!= null && countrysTab.getAll() != null){
             ;//return false;
         }
-        System.out.println("here");
+      
         try {
             countries = this.getCricOfflineDAO().findCountrys();
             System.out.println(countries);

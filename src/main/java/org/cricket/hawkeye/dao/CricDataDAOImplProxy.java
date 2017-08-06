@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * This file is part of j-hawk
+ * CopyLeft (C) 2012-2013 Manoranjan Sahu, All Rights are left.
+ *
  */
 package org.cricket.hawkeye.dao;
 
@@ -30,7 +30,7 @@ public class CricDataDAOImplProxy extends DefaultCricDataDAOImpl {
     }
     
     public boolean injectDependenciesInProviderDAO(){
-        System.out.println("address1 is ::"+this.hashCode());
+        
         DefaultCricDataDAOImpl providerDAO = (DefaultCricDataDAOImpl)this.getCricDataProviderDAO();
         providerDAO.setCommonService(this.getCommonService());
         providerDAO.setFileService(this.getFileService());
@@ -68,7 +68,7 @@ public class CricDataDAOImplProxy extends DefaultCricDataDAOImpl {
      */
     @Override
     public String findCountrysHTML() throws DAOException {
-       System.out.println("address2 is ::"+this.hashCode());
+     
        if(!this.isProviderPresent()){
            throw new DataProviderUnavailabilityException("Could not find any data provider");
        } 

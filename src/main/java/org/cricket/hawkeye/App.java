@@ -4,8 +4,10 @@ import org.common.di.AppContainer;
 import org.cricket.hawkeye.config.HawkEyeConfigHelper;
 import org.cricket.hawkeye.context.HawkEyeExecutionContext;
 import org.cricket.hawkeye.context.IHawkEyeExecutionContext;
+import org.cricket.hawkeye.dao.ICricDataDAO;
 import org.cricket.hawkeye.db.Inning;
 import org.cricket.hawkeye.service.download.ICricDataDownloadService;
+import org.cricket.hawkeye.service.persistence.ICricDataPersistenceService;
 
 /**
  * Hello world!
@@ -27,13 +29,13 @@ public class App {
         HawkEyeConfigHelper.getInstance().configure();
 
         ICricDataDownloadService cricDataDownloadService = (ICricDataDownloadService) AppContainer.getInstance().getBean(ICricDataDownloadService.class);
-        cricDataDownloadService.downloadAll();
+        //cricDataDownloadService.downloadAll();
 
-       // ICricDataPersistenceService cricDataPersistenceService = (ICricDataPersistenceService) AppContainer.getInstance().getBean("cricDataPersistenceService");
+        ICricDataPersistenceService cricDataPersistenceService =  AppContainer.getInstance().getBean(ICricDataPersistenceService.class);
         //System.out.println(cricDataPersistenceService);
-        //System.out.println(cricDataPersistenceService.persist());
-        //  ICricDataDAO cricDAO = (ICricDataDAO) AppContainer.getInstance().getBean("cricOfflineDAO");
-        //   System.out.println( cricDAO.findPlayers() );
+        System.out.println(cricDataPersistenceService.persist());
+          ICricDataDAO cricDAO = (ICricDataDAO) AppContainer.getInstance().getBean("cricOfflineDAO");
+           System.out.println( cricDAO.findPlayers() );
     }
 
     private static void show(Inning[] innings) {

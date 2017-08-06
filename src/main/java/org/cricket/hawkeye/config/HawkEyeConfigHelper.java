@@ -69,7 +69,7 @@ public class HawkEyeConfigHelper  {
     public boolean configure() throws HawkEyeException {
 
         boolean status;
-        System.out.println("I am Invoked !!!!");
+       
         //this.configureSpringBeans();
         HawkEyePluginConfiguration hawkEyePluginConfig = this.loadConfig();
         status = this.configureCricDataProvider(hawkEyePluginConfig);

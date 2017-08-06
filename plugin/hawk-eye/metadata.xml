@@ -4,19 +4,21 @@
     <classpath>
         <jar>
             <desc>hawkeye plugin</desc>
-            <path>hawkeye-1.0.jar</path>
+            <path>hawkeye-17.8.jar</path>
         </jar>
     </classpath>
     <configuration>
         <configXML>config.xml</configXML>
-        <parserClazz>org.cricket.hawkeye.plugin.HawkEyeConfig</parserClazz>
+        <hawkConfigClazz>org.cricket.hawkeye.plugin.HawkEyePluginConfig</hawkConfigClazz>
+        <parserClazz>org.cricket.hawkeye.plugin.HawkEyePluginConfiguration</parserClazz>
+        <springConfigClazz>org.cricket.hawkeye.plugin.HawkEyeSpringConfig</springConfigClazz>
     </configuration>
     <logPath>.</logPath>
     <software>
         <about>This is a software about analyzing cricket data collected from cricinfo.com</about>
         <category>Sports Analytics</category>
         <contributor>
-            <address>#1211,2nd floor,22nd cross,3rd sector, HSR Layout, Bangalore-560102,Karnataka,India</address>
+            <address>#1993,AECS Layout,A Block,Singasandra, Bangalore-560068,Karnataka,India</address>
             <authorType>INDIVIDUAL</authorType>
             <contactNo>+91-9740319263</contactNo>
             <email>abeautifulmind98@gmail.com</email>
@@ -24,9 +26,9 @@
             <website>http://www.j-hawk.in</website>
         </contributor>
         <name>hawk-eye</name>
-        <releaseDate>2013-10-09T09:27:35.354+05:30</releaseDate>
+        <releaseDate>2016-08-06T11:55:45.230+05:30</releaseDate>
         <version>
-            <version>13.10</version>
+            <version>17.8</version>
         </version>
         <website>http://www.j-hawk.in</website>
     </software>
