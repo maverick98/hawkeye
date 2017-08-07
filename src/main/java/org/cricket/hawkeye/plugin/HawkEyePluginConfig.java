@@ -44,7 +44,7 @@ public class HawkEyePluginConfig implements IHawkPluginConfig {
     private IHawkEventCallback hawkEyePluginCallbackImpl;
 
     public IHawkEyeExecutionContext getHawkEyeExecutionContext() {
-        return AppContainer.getInstance().getBean("hawkEyeExecutionContext", IHawkEyeExecutionContext.class);
+        return AppContainer.getInstance().getBean( IHawkEyeExecutionContext.class);
     }
 
     public IHawkEventCallback getHawkEyePluginCallback() {

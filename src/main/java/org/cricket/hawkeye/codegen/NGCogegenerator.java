@@ -46,7 +46,6 @@ public class NGCogegenerator {
     public void generate() {
         try {
             HawkConfigHelper.configure();
-            
                
             System.out.println("-----------");
             ICodeTemplateProvider codeTemplateProvider = new DefaultCodeTemplateProvider();
