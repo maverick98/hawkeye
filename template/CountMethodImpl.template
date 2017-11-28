@@ -26,18 +26,8 @@ for(var i = 1 ; i<= #SIZE#;i = i+1)
 >		}else{
 >			tmpSet = this.get#CLAZZ#s().getAll();
 >		}
->		
->		int count =0;
->
->
->		for(#CLAZZ# inning : tmpSet){
->			
->			
->			count++;
->		}		
->
->		
->		return count;
+>		return tmpSet.stream().count();
+
 >	}
       echo ""
       echo "END"+j+"END"

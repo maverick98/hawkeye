@@ -1,0 +1,21 @@
+
+@SubTask(name = "countDismissalType", sequence = 1, ignoreException = false, hawkParam = "var innings")public     int countDismissalType (Object ... args ){Set<Inning> input = null;if ( args[0] != null){input  = (Set<Inning> ) args[0];}Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}int count =0;for(Inning inning : tmpSet){count++;}return count;}
+
+
+@SubTask(name = "countInnings", sequence = 1, ignoreException = false, hawkParam = "var innings")public     int countInnings (Object ... args ){Set<Inning> input = null;if ( args[0] != null){input  = (Set<Inning> ) args[0];}Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}int count =0;for(Inning inning : tmpSet){count++;}return count;}
+
+
+@SubTask(name = "countOpposition", sequence = 1, ignoreException = false, hawkParam = "var innings")public     int countOpposition (Object ... args ){Set<Inning> input = null;if ( args[0] != null){input  = (Set<Inning> ) args[0];}Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}int count =0;for(Inning inning : tmpSet){count++;}return count;}
+
+
+@SubTask(name = "countGround", sequence = 1, ignoreException = false, hawkParam = "var innings")public     int countGround (Object ... args ){Set<Inning> input = null;if ( args[0] != null){input  = (Set<Inning> ) args[0];}Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}int count =0;for(Inning inning : tmpSet){count++;}return count;}
+
+
+@SubTask(name = "countStartDate", sequence = 1, ignoreException = false, hawkParam = "var innings")public     int countStartDate (Object ... args ){Set<Inning> input = null;if ( args[0] != null){input  = (Set<Inning> ) args[0];}Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}int count =0;for(Inning inning : tmpSet){count++;}return count;}
+
+
+@SubTask(name = "countWasOut", sequence = 1, ignoreException = false, hawkParam = "var innings")public     int countWasOut (Object ... args ){Set<Inning> input = null;if ( args[0] != null){input  = (Set<Inning> ) args[0];}Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}int count =0;for(Inning inning : tmpSet){count++;}return count;}
+
+
+@SubTask(name = "countBatted", sequence = 1, ignoreException = false, hawkParam = "var innings")public     int countBatted (Object ... args ){Set<Inning> input = null;if ( args[0] != null){input  = (Set<Inning> ) args[0];}Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}int count =0;for(Inning inning : tmpSet){count++;}return count;}
+

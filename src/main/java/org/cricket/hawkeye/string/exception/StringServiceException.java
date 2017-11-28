@@ -1,6 +1,6 @@
 /*
  * This file is part of hawkeye
- * Copyright (C) 2012-2013 Manoranjan Sahu, All Rights Reserved.
+ * Copyright (C) BigBang<->BigCrunch Manoranjan Sahu, All Rights Reserved.
  *
  * This software is provided under the GNU GPL Version 2. In particular,
  *

@@ -1,0 +1,27 @@
+
+@SubTask(name = "topRuns ", sequence = 1, ignoreException = false, hawkParam = "var innings,var runs ")public      Inning [] topRuns (Object ... args ){Integer count = 10;Inning []  tmpArray = this.sortRuns (args);if( tmpArray == null){return null;}if( args.length == 2 ){count = (Integer)args[1];}Inning [] result = new Inning [count] ;for(int i=0;i<count;i++){result[i] = tmpArray[i];}return result;}
+
+
+@SubTask(name = "topMins ", sequence = 1, ignoreException = false, hawkParam = "var innings,var mins ")public      Inning [] topMins (Object ... args ){Integer count = 10;Inning []  tmpArray = this.sortMins (args);if( tmpArray == null){return null;}if( args.length == 2 ){count = (Integer)args[1];}Inning [] result = new Inning [count] ;for(int i=0;i<count;i++){result[i] = tmpArray[i];}return result;}
+
+
+@SubTask(name = "topBallFaced ", sequence = 1, ignoreException = false, hawkParam = "var innings,var ballFaced ")public      Inning [] topBallFaced (Object ... args ){Integer count = 10;Inning []  tmpArray = this.sortBallFaced (args);if( tmpArray == null){return null;}if( args.length == 2 ){count = (Integer)args[1];}Inning [] result = new Inning [count] ;for(int i=0;i<count;i++){result[i] = tmpArray[i];}return result;}
+
+
+@SubTask(name = "topFours ", sequence = 1, ignoreException = false, hawkParam = "var innings,var fours ")public      Inning [] topFours (Object ... args ){Integer count = 10;Inning []  tmpArray = this.sortFours (args);if( tmpArray == null){return null;}if( args.length == 2 ){count = (Integer)args[1];}Inning [] result = new Inning [count] ;for(int i=0;i<count;i++){result[i] = tmpArray[i];}return result;}
+
+
+@SubTask(name = "topSixes ", sequence = 1, ignoreException = false, hawkParam = "var innings,var sixes ")public      Inning [] topSixes (Object ... args ){Integer count = 10;Inning []  tmpArray = this.sortSixes (args);if( tmpArray == null){return null;}if( args.length == 2 ){count = (Integer)args[1];}Inning [] result = new Inning [count] ;for(int i=0;i<count;i++){result[i] = tmpArray[i];}return result;}
+
+
+@SubTask(name = "topStrikeRate ", sequence = 1, ignoreException = false, hawkParam = "var innings,var strikeRate ")public      Inning [] topStrikeRate (Object ... args ){Integer count = 10;Inning []  tmpArray = this.sortStrikeRate (args);if( tmpArray == null){return null;}if( args.length == 2 ){count = (Integer)args[1];}Inning [] result = new Inning [count] ;for(int i=0;i<count;i++){result[i] = tmpArray[i];}return result;}
+
+
+@SubTask(name = "topPositions ", sequence = 1, ignoreException = false, hawkParam = "var innings,var positions ")public      Inning [] topPositions (Object ... args ){Integer count = 10;Inning []  tmpArray = this.sortPositions (args);if( tmpArray == null){return null;}if( args.length == 2 ){count = (Integer)args[1];}Inning [] result = new Inning [count] ;for(int i=0;i<count;i++){result[i] = tmpArray[i];}return result;}
+
+
+@SubTask(name = "topInnings ", sequence = 1, ignoreException = false, hawkParam = "var innings,var innings ")public      Inning [] topInnings (Object ... args ){Integer count = 10;Inning []  tmpArray = this.sortInnings (args);if( tmpArray == null){return null;}if( args.length == 2 ){count = (Integer)args[1];}Inning [] result = new Inning [count] ;for(int i=0;i<count;i++){result[i] = tmpArray[i];}return result;}
+
+
+@SubTask(name = "topOdi ", sequence = 1, ignoreException = false, hawkParam = "var innings,var odi ")public      Inning [] topOdi (Object ... args ){Integer count = 10;Inning []  tmpArray = this.sortOdi (args);if( tmpArray == null){return null;}if( args.length == 2 ){count = (Integer)args[1];}Inning [] result = new Inning [count] ;for(int i=0;i<count;i++){result[i] = tmpArray[i];}return result;}
+

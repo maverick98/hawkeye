@@ -1,7 +1,7 @@
 /**
- * This file was generated at Sat Aug 05 12:52:59 IST 2017*Don't you dare edit
+ * This file was generated at Mon Nov 27 09:15:41 IST 2017*Don't you dare edit
  * this file.You will regret it if you do!!!* This file is part of hawkeye*
- * CopyLeft (C) 2012-2013 Manoranjan Sahu, All Rights are left.*
+ * CopyLeft (C) BigBang<->BigCrunch Manoranjan Sahu, All Rights are left.*
  */package org.cricket.hawkeye.db;
 
 import java.util.Set;
@@ -61,16 +61,8 @@ public class GroundFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getGrounds().getAll();
         }
-        Ground[] tmpArray = tmpSet.toArray(new Ground[]{});
-        Arrays.sort(tmpArray, new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                Ground thisGround = (Ground) o1;
-                Ground thatGround = (Ground) o2;
-                return thisGround.getName().compareTo(thatGround.getName());
-            }
-        });
-        return tmpArray;
+        Comparator<Ground> cmp = java.util.Comparator.comparing(Ground::getName);
+        return tmpSet.stream().sorted(cmp).toArray(size -> new Ground[size]);
     }
 
     @SubTask(name = "likeName ", sequence = 1, ignoreException = false, hawkParam = "var innings,var name ")
@@ -120,6 +112,7 @@ public class GroundFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getGrounds().getAll();
         }
+        
         int count = 0;
         for (Ground inning : tmpSet) {
             count++;

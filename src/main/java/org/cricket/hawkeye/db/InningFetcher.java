@@ -1,7 +1,7 @@
 /**
- * This file was generated at Sat Aug 05 12:53:00 IST 2017*Don't you dare edit
+ * This file was generated at Mon Nov 27 09:15:42 IST 2017*Don't you dare edit
  * this file.You will regret it if you do!!!* This file is part of hawkeye*
- * CopyLeft (C) 2012-2013 Manoranjan Sahu, All Rights are left.*
+ * CopyLeft (C) BigBang<->BigCrunch Manoranjan Sahu, All Rights are left.*
  */package org.cricket.hawkeye.db;
 
 import java.util.Set;
@@ -1243,16 +1243,8 @@ public class InningFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getInnings().getAll();
         }
-        Inning[] tmpArray = tmpSet.toArray(new Inning[]{});
-        Arrays.sort(tmpArray, new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                Inning thisInning = (Inning) o1;
-                Inning thatInning = (Inning) o2;
-                return thisInning.getPlayer().compareTo(thatInning.getPlayer());
-            }
-        });
-        return tmpArray;
+        Comparator<Inning> cmp = java.util.Comparator.comparing(Inning::getPlayer);
+        return tmpSet.stream().sorted(cmp).toArray(size -> new Inning[size]);
     }
 
     @SubTask(name = "sortRuns ", sequence = 1, ignoreException = false, hawkParam = "var innings,var runs ")
@@ -1268,16 +1260,9 @@ public class InningFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getInnings().getAll();
         }
-        Inning[] tmpArray = tmpSet.toArray(new Inning[]{});
-        Arrays.sort(tmpArray, new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                Inning thisInning = (Inning) o1;
-                Inning thatInning = (Inning) o2;
-                return thisInning.getRuns().compareTo(thatInning.getRuns());
-            }
-        });
-        return tmpArray;
+        
+        Comparator<Inning> cmp = java.util.Comparator.comparing(Inning::getRuns);
+        return tmpSet.stream().sorted(cmp).toArray(size -> new Inning[size]);
     }
 
     @SubTask(name = "sortMins ", sequence = 1, ignoreException = false, hawkParam = "var innings,var mins ")
@@ -1293,16 +1278,8 @@ public class InningFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getInnings().getAll();
         }
-        Inning[] tmpArray = tmpSet.toArray(new Inning[]{});
-        Arrays.sort(tmpArray, new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                Inning thisInning = (Inning) o1;
-                Inning thatInning = (Inning) o2;
-                return thisInning.getMins().compareTo(thatInning.getMins());
-            }
-        });
-        return tmpArray;
+        Comparator<Inning> cmp = java.util.Comparator.comparing(Inning::getMins);
+        return tmpSet.stream().sorted(cmp).toArray(size -> new Inning[size]);
     }
 
     @SubTask(name = "sortBallFaced ", sequence = 1, ignoreException = false, hawkParam = "var innings,var ballFaced ")
@@ -1318,16 +1295,8 @@ public class InningFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getInnings().getAll();
         }
-        Inning[] tmpArray = tmpSet.toArray(new Inning[]{});
-        Arrays.sort(tmpArray, new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                Inning thisInning = (Inning) o1;
-                Inning thatInning = (Inning) o2;
-                return thisInning.getBallFaced().compareTo(thatInning.getBallFaced());
-            }
-        });
-        return tmpArray;
+        Comparator<Inning> cmp = java.util.Comparator.comparing(Inning::getBallFaced);
+        return tmpSet.stream().sorted(cmp).toArray(size -> new Inning[size]);
     }
 
     @SubTask(name = "sortFours ", sequence = 1, ignoreException = false, hawkParam = "var innings,var fours ")
@@ -1343,16 +1312,8 @@ public class InningFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getInnings().getAll();
         }
-        Inning[] tmpArray = tmpSet.toArray(new Inning[]{});
-        Arrays.sort(tmpArray, new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                Inning thisInning = (Inning) o1;
-                Inning thatInning = (Inning) o2;
-                return thisInning.getFours().compareTo(thatInning.getFours());
-            }
-        });
-        return tmpArray;
+        Comparator<Inning> cmp = java.util.Comparator.comparing(Inning::getFours);
+        return tmpSet.stream().sorted(cmp).toArray(size -> new Inning[size]);
     }
 
     @SubTask(name = "sortSixes ", sequence = 1, ignoreException = false, hawkParam = "var innings,var sixes ")
@@ -1368,16 +1329,8 @@ public class InningFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getInnings().getAll();
         }
-        Inning[] tmpArray = tmpSet.toArray(new Inning[]{});
-        Arrays.sort(tmpArray, new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                Inning thisInning = (Inning) o1;
-                Inning thatInning = (Inning) o2;
-                return thisInning.getSixes().compareTo(thatInning.getSixes());
-            }
-        });
-        return tmpArray;
+        Comparator<Inning> cmp = java.util.Comparator.comparing(Inning::getSixes);
+        return tmpSet.stream().sorted(cmp).toArray(size -> new Inning[size]);
     }
 
     @SubTask(name = "sortStrikeRate ", sequence = 1, ignoreException = false, hawkParam = "var innings,var strikeRate ")
@@ -1393,16 +1346,8 @@ public class InningFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getInnings().getAll();
         }
-        Inning[] tmpArray = tmpSet.toArray(new Inning[]{});
-        Arrays.sort(tmpArray, new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                Inning thisInning = (Inning) o1;
-                Inning thatInning = (Inning) o2;
-                return thisInning.getStrikeRate().compareTo(thatInning.getStrikeRate());
-            }
-        });
-        return tmpArray;
+        Comparator<Inning> cmp = java.util.Comparator.comparing(Inning::getStrikeRate);
+        return tmpSet.stream().sorted(cmp).toArray(size -> new Inning[size]);
     }
 
     @SubTask(name = "sortPositions ", sequence = 1, ignoreException = false, hawkParam = "var innings,var positions ")
@@ -1418,16 +1363,8 @@ public class InningFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getInnings().getAll();
         }
-        Inning[] tmpArray = tmpSet.toArray(new Inning[]{});
-        Arrays.sort(tmpArray, new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                Inning thisInning = (Inning) o1;
-                Inning thatInning = (Inning) o2;
-                return thisInning.getPositions().compareTo(thatInning.getPositions());
-            }
-        });
-        return tmpArray;
+        Comparator<Inning> cmp = java.util.Comparator.comparing(Inning::getPositions);
+        return tmpSet.stream().sorted(cmp).toArray(size -> new Inning[size]);
     }
 
     @SubTask(name = "sortDismissalType ", sequence = 1, ignoreException = false, hawkParam = "var innings,var dismissalType ")
@@ -1443,16 +1380,8 @@ public class InningFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getInnings().getAll();
         }
-        Inning[] tmpArray = tmpSet.toArray(new Inning[]{});
-        Arrays.sort(tmpArray, new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                Inning thisInning = (Inning) o1;
-                Inning thatInning = (Inning) o2;
-                return thisInning.getDismissalType().compareTo(thatInning.getDismissalType());
-            }
-        });
-        return tmpArray;
+        Comparator<Inning> cmp = java.util.Comparator.comparing(Inning::getDismissalType);
+        return tmpSet.stream().sorted(cmp).toArray(size -> new Inning[size]);
     }
 
     @SubTask(name = "sortInnings ", sequence = 1, ignoreException = false, hawkParam = "var innings,var innings ")
@@ -1468,16 +1397,8 @@ public class InningFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getInnings().getAll();
         }
-        Inning[] tmpArray = tmpSet.toArray(new Inning[]{});
-        Arrays.sort(tmpArray, new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                Inning thisInning = (Inning) o1;
-                Inning thatInning = (Inning) o2;
-                return thisInning.getInnings().compareTo(thatInning.getInnings());
-            }
-        });
-        return tmpArray;
+        Comparator<Inning> cmp = java.util.Comparator.comparing(Inning::getInnings);
+        return tmpSet.stream().sorted(cmp).toArray(size -> new Inning[size]);
     }
 
     @SubTask(name = "sortOpposition ", sequence = 1, ignoreException = false, hawkParam = "var innings,var opposition ")
@@ -1493,16 +1414,8 @@ public class InningFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getInnings().getAll();
         }
-        Inning[] tmpArray = tmpSet.toArray(new Inning[]{});
-        Arrays.sort(tmpArray, new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                Inning thisInning = (Inning) o1;
-                Inning thatInning = (Inning) o2;
-                return thisInning.getOpposition().compareTo(thatInning.getOpposition());
-            }
-        });
-        return tmpArray;
+        Comparator<Inning> cmp = java.util.Comparator.comparing(Inning::getOpposition);
+        return tmpSet.stream().sorted(cmp).toArray(size -> new Inning[size]);
     }
 
     @SubTask(name = "sortGround ", sequence = 1, ignoreException = false, hawkParam = "var innings,var ground ")
@@ -1518,16 +1431,8 @@ public class InningFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getInnings().getAll();
         }
-        Inning[] tmpArray = tmpSet.toArray(new Inning[]{});
-        Arrays.sort(tmpArray, new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                Inning thisInning = (Inning) o1;
-                Inning thatInning = (Inning) o2;
-                return thisInning.getGround().compareTo(thatInning.getGround());
-            }
-        });
-        return tmpArray;
+        Comparator<Inning> cmp = java.util.Comparator.comparing(Inning::getGround);
+        return tmpSet.stream().sorted(cmp).toArray(size -> new Inning[size]);
     }
 
     @SubTask(name = "sortStartDate ", sequence = 1, ignoreException = false, hawkParam = "var innings,var startDate ")
@@ -1543,16 +1448,8 @@ public class InningFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getInnings().getAll();
         }
-        Inning[] tmpArray = tmpSet.toArray(new Inning[]{});
-        Arrays.sort(tmpArray, new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                Inning thisInning = (Inning) o1;
-                Inning thatInning = (Inning) o2;
-                return thisInning.getStartDate().compareTo(thatInning.getStartDate());
-            }
-        });
-        return tmpArray;
+        Comparator<Inning> cmp = java.util.Comparator.comparing(Inning::getStartDate);
+        return tmpSet.stream().sorted(cmp).toArray(size -> new Inning[size]);
     }
 
     @SubTask(name = "sortOdi ", sequence = 1, ignoreException = false, hawkParam = "var innings,var odi ")
@@ -1568,16 +1465,8 @@ public class InningFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getInnings().getAll();
         }
-        Inning[] tmpArray = tmpSet.toArray(new Inning[]{});
-        Arrays.sort(tmpArray, new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                Inning thisInning = (Inning) o1;
-                Inning thatInning = (Inning) o2;
-                return thisInning.getOdi().compareTo(thatInning.getOdi());
-            }
-        });
-        return tmpArray;
+        Comparator<Inning> cmp = java.util.Comparator.comparing(Inning::getOdi);
+        return tmpSet.stream().sorted(cmp).toArray(size -> new Inning[size]);
     }
 
     @SubTask(name = "sortWasOut ", sequence = 1, ignoreException = false, hawkParam = "var innings,var wasOut ")
@@ -1593,16 +1482,8 @@ public class InningFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getInnings().getAll();
         }
-        Inning[] tmpArray = tmpSet.toArray(new Inning[]{});
-        Arrays.sort(tmpArray, new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                Inning thisInning = (Inning) o1;
-                Inning thatInning = (Inning) o2;
-                return thisInning.getWasOut().compareTo(thatInning.getWasOut());
-            }
-        });
-        return tmpArray;
+        Comparator<Inning> cmp = java.util.Comparator.comparing(Inning::getWasOut);
+        return tmpSet.stream().sorted(cmp).toArray(size -> new Inning[size]);
     }
 
     @SubTask(name = "sortBatted ", sequence = 1, ignoreException = false, hawkParam = "var innings,var batted ")
@@ -1618,16 +1499,8 @@ public class InningFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getInnings().getAll();
         }
-        Inning[] tmpArray = tmpSet.toArray(new Inning[]{});
-        Arrays.sort(tmpArray, new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                Inning thisInning = (Inning) o1;
-                Inning thatInning = (Inning) o2;
-                return thisInning.getBatted().compareTo(thatInning.getBatted());
-            }
-        });
-        return tmpArray;
+        Comparator<Inning> cmp = java.util.Comparator.comparing(Inning::getBatted);
+        return tmpSet.stream().sorted(cmp).toArray(size -> new Inning[size]);
     }
 
     @SubTask(name = "beforeStartDate ", sequence = 1, ignoreException = false, hawkParam = "var innings,var startDate ")

@@ -30,25 +30,9 @@ for(var i = 1 ; i<= #SIZE#;i = i+1)
 >		}else{
 >			tmpSet = this.get#CLAZZ#s().getAll();
 >		}
->		#CLAZZ# []  tmpArray = tmpSet.toArray(new #CLAZZ#[] {});
->		Arrays.sort
->                        (
->                            tmpArray,
->                            new Comparator(){
->
->                                @Override
-echo ""
->                                public int compare(Object o1, Object o2) {
->                                    #CLAZZ# this#CLAZZ# = (#CLAZZ#) o1;
->                                    #CLAZZ# that#CLAZZ# = (#CLAZZ#) o2;
->                                    return this#CLAZZ#.get#FIELD# ().compareTo(that#CLAZZ#.get#FIELD# ());
->                                }
->                    
->                            }
->                        );
->				
->
->		return tmpArray;
+>               Comparator<#CLAZZ#> cmp = java.util.Comparator.comparing(#CLAZZ#::get#FIELD#);
+>               return tmpSet.stream().sorted(cmp).toArray(size->new #CLAZZ#[size]);
+
 >	}
       echo ""
 

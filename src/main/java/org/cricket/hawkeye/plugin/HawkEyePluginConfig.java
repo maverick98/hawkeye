@@ -5,6 +5,7 @@
  */
 package org.cricket.hawkeye.plugin;
 
+import java.awt.geom.QuadCurve2D;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,6 @@ import org.commons.event.exception.HawkEventException;
 import org.hawk.plugin.exception.HawkPluginException;
 import org.hawk.plugin.metadata.Jar;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
  *
