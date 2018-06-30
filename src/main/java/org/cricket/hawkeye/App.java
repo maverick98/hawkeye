@@ -29,7 +29,7 @@ public class App {
         HawkEyeConfigHelper.getInstance().configure();
 
         ICricDataDownloadService cricDataDownloadService = (ICricDataDownloadService) AppContainer.getInstance().getBean(ICricDataDownloadService.class);
-        //cricDataDownloadService.downloadAll();
+        cricDataDownloadService.downloadAll();
 
         ICricDataPersistenceService cricDataPersistenceService =  AppContainer.getInstance().getBean(ICricDataPersistenceService.class);
         //System.out.println(cricDataPersistenceService);
