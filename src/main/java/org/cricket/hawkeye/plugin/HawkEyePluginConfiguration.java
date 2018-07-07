@@ -16,7 +16,9 @@
  */
 package org.cricket.hawkeye.plugin;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.commons.file.FileUtil;
 import org.cricket.hawkeye.config.CricketDataProvider;
@@ -25,6 +27,7 @@ import org.hawk.plugin.metadata.Classpath;
 import org.hawk.plugin.metadata.Configuration;
 import org.hawk.plugin.metadata.HawkPluginMetaData;
 import org.hawk.plugin.metadata.Jar;
+import org.hawk.plugin.metadata.PluginModuleClazz;
 import org.hawk.software.Contributor;
 import org.hawk.software.Software;
 import org.hawk.software.Version;
@@ -39,7 +42,6 @@ import org.hawk.xml.XMLUtil;
 @XmlRootElement
 public class HawkEyePluginConfiguration {
 
-
     private CricketDataProvider cricketDataProvider;
 
     public CricketDataProvider getCricketDataProvider() {
@@ -50,9 +52,27 @@ public class HawkEyePluginConfiguration {
         this.cricketDataProvider = cricketDataProvider;
     }
 
-   
-    public static void main(String args[]) throws  Exception{
+    public static void main(String args[]) throws Exception {
         HawkPluginMetaData hawkEyePluginMetaData = new HawkPluginMetaData();
+        List<PluginModuleClazz> pluginModuleClazz = new ArrayList<>();
+        PluginModuleClazz inningFetcher = new PluginModuleClazz();
+        inningFetcher.setClazz("org.cricket.hawkeye.db.InningFetcher");
+        pluginModuleClazz.add(inningFetcher);
+
+        PluginModuleClazz groundFetcher = new PluginModuleClazz();
+        groundFetcher.setClazz("org.cricket.hawkeye.db.GroundFetcher");
+        pluginModuleClazz.add(groundFetcher);
+
+        PluginModuleClazz countryFetcher = new PluginModuleClazz();
+        countryFetcher.setClazz("org.cricket.hawkeye.db.CountryFetcher");
+        pluginModuleClazz.add(countryFetcher);
+
+        PluginModuleClazz playerFetcher = new PluginModuleClazz();
+        playerFetcher.setClazz("org.cricket.hawkeye.db.PlayerFetcher");
+        pluginModuleClazz.add(playerFetcher);
+        
+        hawkEyePluginMetaData.setPluginModuleClazz(pluginModuleClazz);
+
         Configuration configuration = new Configuration();
         configuration.setHawkConfigClazz("org.cricket.hawkeye.plugin.HawkEyePluginConfig");
         configuration.setSpringConfigClazz("org.cricket.hawkeye.plugin.HawkEyeSpringConfig");
@@ -73,7 +93,7 @@ public class HawkEyePluginConfiguration {
         software.setVersion(hawkVersion);
         software.setContributor(contributor);
         software.setCategory("Sports Analytics");
-        software.setName("hawk-eye");
+        software.setName("hawkeye");
         software.setReleaseDate(new Date());
         software.setWebsite("http://www.j-hawk.in");
         software.setAbout("This is a software about analyzing cricket data collected from cricinfo.com");
@@ -89,37 +109,36 @@ public class HawkEyePluginConfiguration {
         XMLUtil.marshal(hawkEyePluginMetaData, "metadata.xml");
      //   System.out.println(FileUtil.readFile("metadata.xml"));
 
-   //     System.out.println(XMLUtil.unmarshal("metadata.xml", HawkPluginMetaData.class).getSoftware().getAbout());
-        
-         HawkEyePluginConfiguration hawkEyeConfig = new HawkEyePluginConfiguration();
-        
-         CricketDataProvider cricketDataProvider = new CricketDataProvider();
-         hawkEyeConfig.setCricketDataProvider(cricketDataProvider);
-         cricketDataProvider.setTabPath(".");
+        //     System.out.println(XMLUtil.unmarshal("metadata.xml", HawkPluginMetaData.class).getSoftware().getAbout());
+        HawkEyePluginConfiguration hawkEyeConfig = new HawkEyePluginConfiguration();
 
-         Jar jar11 = new Jar();
-         jar11.setDesc("espnhawkeye");
-         jar11.setPath("espnhawkeye-1.0.jar");
-         Classpath classpath1 = new Classpath();
-         classpath1.getJar().add(jar11);
-         cricketDataProvider.setClasspath(classpath1);
+        CricketDataProvider cricketDataProvider = new CricketDataProvider();
+        hawkEyeConfig.setCricketDataProvider(cricketDataProvider);
+        cricketDataProvider.setTabPath(".");
 
-         Software espnSoftware = new Software();
-         Version espnhawkeyeversion = new Version();
-         espnhawkeyeversion.setVersion("1.0");
+        Jar jar11 = new Jar();
+        jar11.setDesc("espnhawkeye");
+        jar11.setPath("espnhawkeye-1.0.jar");
+        Classpath classpath1 = new Classpath();
+        classpath1.getJar().add(jar11);
+        cricketDataProvider.setClasspath(classpath1);
 
-         espnSoftware.setVersion(espnhawkeyeversion);
-         espnSoftware.setContributor(contributor);
-         espnSoftware.setCategory("Sports Analytics");
-         espnSoftware.setName("espn hawk-eye");
-         espnSoftware.setReleaseDate(new Date());
-         espnSoftware.setWebsite("http://www.espncricinfo.com");
-         espnSoftware.setAbout("hawkeye data provided by espncricinfo");
-         cricketDataProvider.setSoftware(espnSoftware);
-         XMLUtil.marshal(hawkEyeConfig, "config.xml");
+        Software espnSoftware = new Software();
+        Version espnhawkeyeversion = new Version();
+        espnhawkeyeversion.setVersion("1.0");
+
+        espnSoftware.setVersion(espnhawkeyeversion);
+        espnSoftware.setContributor(contributor);
+        espnSoftware.setCategory("Sports Analytics");
+        espnSoftware.setName("espn hawk-eye");
+        espnSoftware.setReleaseDate(new Date());
+        espnSoftware.setWebsite("http://www.espncricinfo.com");
+        espnSoftware.setAbout("hawkeye data provided by espncricinfo");
+        cricketDataProvider.setSoftware(espnSoftware);
+        XMLUtil.marshal(hawkEyeConfig, "config.xml");
         // System.out.println(FileUtil.readFile("config.xml"));
 
-         System.out.println(XMLUtil.unmarshal("config.xml", HawkEyePluginConfiguration.class));
-         
+        System.out.println(XMLUtil.unmarshal("config.xml", HawkEyePluginConfiguration.class));
+
     }
 }

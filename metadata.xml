@@ -4,7 +4,7 @@
     <classpath>
         <jar>
             <desc>hawkeye plugin</desc>
-            <path>hawkeye-17.8.jar</path>
+            <path>hawkeye-1.0.jar</path>
         </jar>
     </classpath>
     <configuration>
@@ -14,6 +14,18 @@
         <springConfigClazz>org.cricket.hawkeye.plugin.HawkEyeSpringConfig</springConfigClazz>
     </configuration>
     <logPath>.</logPath>
+    <pluginModuleClazz>
+        <clazz>org.cricket.hawkeye.db.InningFetcher</clazz>
+    </pluginModuleClazz>
+    <pluginModuleClazz>
+        <clazz>org.cricket.hawkeye.db.GroundFetcher</clazz>
+    </pluginModuleClazz>
+    <pluginModuleClazz>
+        <clazz>org.cricket.hawkeye.db.CountryFetcher</clazz>
+    </pluginModuleClazz>
+    <pluginModuleClazz>
+        <clazz>org.cricket.hawkeye.db.PlayerFetcher</clazz>
+    </pluginModuleClazz>
     <software>
         <about>This is a software about analyzing cricket data collected from cricinfo.com</about>
         <category>Sports Analytics</category>
@@ -25,10 +37,10 @@
             <name>Manoranjan Sahu</name>
             <website>http://www.j-hawk.in</website>
         </contributor>
-        <name>hawk-eye</name>
-        <releaseDate>2016-08-06T11:55:45.230+05:30</releaseDate>
+        <name>hawkeye</name>
+        <releaseDate>2018-07-07T16:24:19.819+05:30</releaseDate>
         <version>
-            <version>17.8</version>
+            <version>13.10</version>
         </version>
         <website>http://www.j-hawk.in</website>
     </software>
