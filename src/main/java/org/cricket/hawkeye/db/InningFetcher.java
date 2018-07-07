@@ -1,5 +1,5 @@
 /**
- * This file was generated at Mon Nov 27 09:15:42 IST 2017*Don't you dare edit
+ * This file was generated at Sat Jul 07 13:32:00 IST 2018*Don't you dare edit
  * this file.You will regret it if you do!!!* This file is part of hawkeye*
  * CopyLeft (C) BigBang<->BigCrunch Manoranjan Sahu, All Rights are left.*
  */package org.cricket.hawkeye.db;
@@ -22,7 +22,7 @@ public class InningFetcher extends HawkPluginModule {
 
     @Override
     public String getPluginName() {
-        return "hawk-eye";
+        return "hawkeye";
     }
 
     public Innings getInnings() {
@@ -1260,7 +1260,6 @@ public class InningFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getInnings().getAll();
         }
-        
         Comparator<Inning> cmp = java.util.Comparator.comparing(Inning::getRuns);
         return tmpSet.stream().sorted(cmp).toArray(size -> new Inning[size]);
     }
@@ -2106,11 +2105,7 @@ public class InningFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getInnings().getAll();
         }
-        int count = 0;
-        for (Inning inning : tmpSet) {
-            count++;
-        }
-        return count;
+        return (int) tmpSet.stream().count();
     }
 
     @SubTask(name = "countInnings", sequence = 1, ignoreException = false, hawkParam = "var innings")
@@ -2125,11 +2120,7 @@ public class InningFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getInnings().getAll();
         }
-        int count = 0;
-        for (Inning inning : tmpSet) {
-            count++;
-        }
-        return count;
+        return (int) tmpSet.stream().count();
     }
 
     @SubTask(name = "countOpposition", sequence = 1, ignoreException = false, hawkParam = "var innings")
@@ -2144,11 +2135,7 @@ public class InningFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getInnings().getAll();
         }
-        int count = 0;
-        for (Inning inning : tmpSet) {
-            count++;
-        }
-        return count;
+        return (int) tmpSet.stream().count();
     }
 
     @SubTask(name = "countGround", sequence = 1, ignoreException = false, hawkParam = "var innings")
@@ -2163,11 +2150,7 @@ public class InningFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getInnings().getAll();
         }
-        int count = 0;
-        for (Inning inning : tmpSet) {
-            count++;
-        }
-        return count;
+        return (int) tmpSet.stream().count();
     }
 
     @SubTask(name = "countStartDate", sequence = 1, ignoreException = false, hawkParam = "var innings")
@@ -2182,11 +2165,7 @@ public class InningFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getInnings().getAll();
         }
-        int count = 0;
-        for (Inning inning : tmpSet) {
-            count++;
-        }
-        return count;
+        return (int) tmpSet.stream().count();
     }
 
     @SubTask(name = "countWasOut", sequence = 1, ignoreException = false, hawkParam = "var innings")
@@ -2201,11 +2180,7 @@ public class InningFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getInnings().getAll();
         }
-        int count = 0;
-        for (Inning inning : tmpSet) {
-            count++;
-        }
-        return count;
+        return (int) tmpSet.stream().count();
     }
 
     @SubTask(name = "countBatted", sequence = 1, ignoreException = false, hawkParam = "var innings")
@@ -2220,11 +2195,7 @@ public class InningFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getInnings().getAll();
         }
-        int count = 0;
-        for (Inning inning : tmpSet) {
-            count++;
-        }
-        return count;
+        return (int) tmpSet.stream().count();
     }
 
     @SubTask(name = "maxRuns ", sequence = 1, ignoreException = false, hawkParam = "var innings,var runs ")

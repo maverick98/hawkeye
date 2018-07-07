@@ -24,7 +24,7 @@ exec  createCopyrightInfo()
 >        @Override
 echo ""
 >        public String getPluginName() {
->         return "hawk-eye";
+>         return "hawkeye";
 >        }
 >
 >	public #CLAZZ#s get#CLAZZ#s() {

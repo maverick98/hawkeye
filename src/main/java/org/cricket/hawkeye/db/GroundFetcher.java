@@ -1,5 +1,5 @@
 /**
- * This file was generated at Mon Nov 27 09:15:41 IST 2017*Don't you dare edit
+ * This file was generated at Sat Jul 07 13:32:00 IST 2018*Don't you dare edit
  * this file.You will regret it if you do!!!* This file is part of hawkeye*
  * CopyLeft (C) BigBang<->BigCrunch Manoranjan Sahu, All Rights are left.*
  */package org.cricket.hawkeye.db;
@@ -22,7 +22,7 @@ public class GroundFetcher extends HawkPluginModule {
 
     @Override
     public String getPluginName() {
-        return "hawk-eye";
+        return "hawkeye";
     }
 
     public Grounds getGrounds() {
@@ -112,12 +112,7 @@ public class GroundFetcher extends HawkPluginModule {
         } else {
             tmpSet = this.getGrounds().getAll();
         }
-        
-        int count = 0;
-        for (Ground inning : tmpSet) {
-            count++;
-        }
-        return count;
+        return (int) tmpSet.stream().count();
     }
 
     @SubTask(name = "equalName ", sequence = 1, ignoreException = false, hawkParam = "var innings,var name ")
