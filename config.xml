@@ -7,6 +7,7 @@
                 <path>espnhawkeye-18.07.jar</path>
             </jar>
         </classpath>
+         <cricDataDAO>org.espn.hawkeye.dao.ESPNCricInfoDAOImpl</cricDataDAO>
         <software>
             <about>hawkeye data provided by espncricinfo</about>
             <category>Sports Analytics</category>

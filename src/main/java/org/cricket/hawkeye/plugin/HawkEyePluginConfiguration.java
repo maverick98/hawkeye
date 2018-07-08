@@ -115,7 +115,7 @@ public class HawkEyePluginConfiguration {
         CricketDataProvider cricketDataProvider = new CricketDataProvider();
         hawkEyeConfig.setCricketDataProvider(cricketDataProvider);
         cricketDataProvider.setTabPath(".");
-
+        cricketDataProvider.setCricDataDAO("org.espn.hawkeye.dao.ESPNCricInfoDAOImpl");
         Jar jar11 = new Jar();
         jar11.setDesc("espnhawkeye");
         jar11.setPath("espnhawkeye-18.07.jar");
