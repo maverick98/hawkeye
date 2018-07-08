@@ -72,7 +72,7 @@ public class HawkEyeConfig {
         hawkEyePluginMetaData.setSoftware(software);
         Jar jar1 = new Jar();
         jar1.setDesc("hawkeye plugin");
-        jar1.setPath("hawkeye-1.0.jar");
+        jar1.setPath("hawkeye-18.07.jar");
         Classpath classpath = new Classpath();
         classpath.getJar().add(jar1);
         hawkEyePluginMetaData.setClasspath(classpath);

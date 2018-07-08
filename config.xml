@@ -4,7 +4,7 @@
         <classpath>
             <jar>
                 <desc>espnhawkeye</desc>
-                <path>espnhawkeye-1.0.jar</path>
+                <path>espnhawkeye-18.07.jar</path>
             </jar>
         </classpath>
         <software>
@@ -19,9 +19,13 @@
                 <website>http://www.j-hawk.in</website>
             </contributor>
             <name>espn hawk-eye</name>
-            <releaseDate>2018-07-07T16:24:20.569+05:30</releaseDate>
+            <pluginName>hawkeye</pluginName>
+            <pluginVersion>
+                <version>18.07</version>
+            </pluginVersion>
+            <releaseDate>2018-07-08T08:43:07.355+05:30</releaseDate>
             <version>
-                <version>1.0</version>
+                <version>18.07</version>
             </version>
             <website>http://www.espncricinfo.com</website>
         </software>

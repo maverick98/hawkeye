@@ -82,7 +82,7 @@ public class HawkEyePluginConfiguration {
         hawkEyePluginMetaData.setBgRun(false);
         Software software = new Software();
         Version hawkVersion = new Version();
-        hawkVersion.setVersion("13.10");
+        hawkVersion.setVersion("18.07");
         Contributor contributor = new Contributor();
         contributor.setAuthorType(Contributor.ContributorTypeEnum.INDIVIDUAL);
         contributor.setName("Manoranjan Sahu");
@@ -100,7 +100,7 @@ public class HawkEyePluginConfiguration {
         hawkEyePluginMetaData.setSoftware(software);
         Jar jar1 = new Jar();
         jar1.setDesc("hawkeye plugin");
-        jar1.setPath("hawkeye-1.0.jar");
+        jar1.setPath("hawkeye-18.07.jar");
         Classpath classpath = new Classpath();
         classpath.getJar().add(jar1);
         hawkEyePluginMetaData.setClasspath(classpath);
@@ -118,16 +118,21 @@ public class HawkEyePluginConfiguration {
 
         Jar jar11 = new Jar();
         jar11.setDesc("espnhawkeye");
-        jar11.setPath("espnhawkeye-1.0.jar");
+        jar11.setPath("espnhawkeye-18.07.jar");
         Classpath classpath1 = new Classpath();
         classpath1.getJar().add(jar11);
         cricketDataProvider.setClasspath(classpath1);
 
         Software espnSoftware = new Software();
         Version espnhawkeyeversion = new Version();
-        espnhawkeyeversion.setVersion("1.0");
+        espnhawkeyeversion.setVersion("18.07");
+        Version pluginVersion = new Version();
+        pluginVersion.setVersion("18.07");
+        
+        espnSoftware.setPluginName("hawkeye");
 
         espnSoftware.setVersion(espnhawkeyeversion);
+        espnSoftware.setPluginVersion(pluginVersion);
         espnSoftware.setContributor(contributor);
         espnSoftware.setCategory("Sports Analytics");
         espnSoftware.setName("espn hawk-eye");

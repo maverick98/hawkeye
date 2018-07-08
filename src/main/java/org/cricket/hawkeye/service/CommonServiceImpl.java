@@ -29,8 +29,8 @@ import java.util.StringTokenizer;
 import org.apache.log4j.Logger;
 import org.common.di.AppContainer;
 import org.cricket.hawkeye.context.IHawkEyeExecutionContext;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
+import org.hawk.plugin.constant.HawkPluginConstant;
+import org.hawk.software.Software;
 
 /**
  *
@@ -174,7 +174,13 @@ public class CommonServiceImpl implements ICommonService{
     @Override
     public String getTabPath(){
         //String tabPath = AppContainer.getInstance().getBean(HAWKTARGETSETTING, HawkTargetSetting.class).getProperty("TABPATH");
-        String tabPath = this.getHawkEyeExecutionContext().getExecutionContext().getConfiguration().getCricketDataProvider().getTabPath();
+        Software software= this.getHawkEyeExecutionContext().getExecutionContext().getConfiguration().getCricketDataProvider().getSoftware();
+        String pluginName= software.getPluginName();
+        String pluginVersion = software.getPluginVersion().getVersion();
+        String pluginDir = HawkPluginConstant.PLUGINDIR;
+        
+        
+        String tabPath=pluginDir+System.getProperty("file.separator")+pluginName+HawkPluginConstant.SEPARATOR+pluginVersion;
         if( tabPath == null || tabPath.isEmpty()){
             tabPath = ".";
         }
