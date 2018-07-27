@@ -16,9 +16,6 @@
  */
 package org.cricket.hawkeye.dao.country;
 
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.cricket.hawkeye.dao.exception.DAOException;
 import java.util.regex.Matcher;
 import org.cricket.hawkeye.dao.DataPattern;

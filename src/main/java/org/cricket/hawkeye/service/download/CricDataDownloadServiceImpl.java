@@ -16,7 +16,12 @@
  */
 package org.cricket.hawkeye.service.download;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 import org.cricket.hawkeye.dao.player.AbstractPlayerDAO;
 import org.apache.log4j.Logger;
 import org.common.di.AppContainer;
@@ -26,6 +31,7 @@ import org.cricket.hawkeye.service.url.IURLService;
 import org.cricket.hawkeye.service.file.exception.FileServiceException;
 
 import org.cricket.hawkeye.dao.ICricDataDAO;
+import org.cricket.hawkeye.dao.PlayerDownloadTask;
 import org.cricket.hawkeye.dao.country.AbstractCountryDAO;
 import org.cricket.hawkeye.dao.exception.DAOException;
 import org.cricket.hawkeye.service.download.exception.DownloadServiceException;
@@ -33,8 +39,6 @@ import org.cricket.hawkeye.exception.HawkEyeException;
 import org.cricket.hawkeye.service.download.exception.DownloadControlServiceException;
 import org.cricket.hawkeye.service.file.IFileService;
 import org.cricket.hawkeye.service.url.exception.URLServiceException;
-
-
 
 /**
  * @TODO Use a dependency injection tool to manage the below instances...
@@ -46,26 +50,27 @@ public class CricDataDownloadServiceImpl implements ICricDataDownloadService {
 
     private static final Logger logger = Logger.getLogger(CricDataDownloadServiceImpl.class);
 
-    public CricDataDownloadServiceImpl(){
-        
+    public CricDataDownloadServiceImpl() {
+
     }
 
     @Autowired(required = true)
-   // @Qualifier("default")
+    // @Qualifier("default")
     ICricDataDAO cricOfflineDAO;
     @Autowired(required = true)
-   // @Qualifier("default")
+    // @Qualifier("default")
     IFileService fileService;
     @Autowired(required = true)
-   // @Qualifier("default")
+    // @Qualifier("default")
     IURLService urlService;
     @Autowired(required = true)
-   // @Qualifier("default")
+    // @Qualifier("default")
     ICricDataDownloadControlService cricDataDownloadControlService;
 
-     public  IHawkEyeExecutionContext getHawkEyeExecutionContext() {
-        return AppContainer.getInstance().getBean( IHawkEyeExecutionContext.class);
+    public IHawkEyeExecutionContext getHawkEyeExecutionContext() {
+        return AppContainer.getInstance().getBean(IHawkEyeExecutionContext.class);
     }
+
     public ICricDataDownloadControlService getCricDataDownloadControlService() {
         return cricDataDownloadControlService;
     }
@@ -74,7 +79,7 @@ public class CricDataDownloadServiceImpl implements ICricDataDownloadService {
         return cricOfflineDAO;
     }
 
-     public ICricDataDAO getCricWebSiteDAO() {
+    public ICricDataDAO getCricWebSiteDAO() {
         return AppContainer.getInstance().getBean("cricWebSiteDAO", ICricDataDAO.class);
     }
 
@@ -128,6 +133,7 @@ public class CricDataDownloadServiceImpl implements ICricDataDownloadService {
 
     /**
      * This method downloads all the data required for hawkEye
+     *
      * @return
      * @throws DownloadServiceException
      */
@@ -137,14 +143,13 @@ public class CricDataDownloadServiceImpl implements ICricDataDownloadService {
         logger.info("inside downloadAll method....");
         try {
 
-
             String countriesHTML = this.downloadCountriesHTML();
 
             final String downloadCountryDir = this.getCricOfflineDAO().findCountrysDir();
 
             this.getCricDataDownloadControlService().touchDownloadControlFile(
                     downloadCountryDir);
-
+            List<PlayerDownloadTask> downloadTasks = new ArrayList<>();
             new AbstractCountryDAO(this.getCricWebSiteDAO().getCountryPattern()) {
 
                 @Override
@@ -159,14 +164,15 @@ public class CricDataDownloadServiceImpl implements ICricDataDownloadService {
                                 countryName);
                         if (shouldDownloadThisCountry) {
                             String website = getHawkEyeExecutionContext().getExecutionContext().getConfiguration().getCricketDataProvider().getSoftware().getWebsite();
-                            logger.info("downloading data for {" + countryName + "}  from {" + website+ "}");
-                            System.out.println("downloading data for {" + countryName + "}  from {" + website+ "}");
+                            logger.info("downloading data for {" + countryName + "}  from {" + website + "}");
+                            System.out.println("downloading data for {" + countryName + "}  from {" + website + "}");
 
                             long startTime = System.currentTimeMillis();
 
                             downloadCountryHTML(countryName);
 
-                            downloadCountry(countryName);
+                            //downloadCountry(countryName);
+                            downloadTasks.addAll(downloadPlayerURLs(countryName));
 
                             long diff = System.currentTimeMillis() - startTime;
 
@@ -180,7 +186,6 @@ public class CricDataDownloadServiceImpl implements ICricDataDownloadService {
                             logger.info("not downloading data for {" + countryName + "} !!!");
                             System.out.println("not downloading data for {" + countryName + "} !!!");
                         }
-
 
                         getCricDataDownloadControlService().removePendingItemToDownloadControlFile(
                                 downloadCountryDir,
@@ -205,7 +210,12 @@ public class CricDataDownloadServiceImpl implements ICricDataDownloadService {
                 }
             }.find(countriesHTML);
 
-
+            ExecutorService pool = Executors.newFixedThreadPool(10);
+            for (PlayerDownloadTask playerDownloadTask : downloadTasks) {
+                pool.submit(new DownloadTask(playerDownloadTask,this.getCricOfflineDAO(),this.getUrlService(),this.getFileService()));
+            }
+            pool.shutdown();
+            pool.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
 
         } catch (DAOException ex) {
 
@@ -225,10 +235,52 @@ public class CricDataDownloadServiceImpl implements ICricDataDownloadService {
 
             throw new DownloadServiceException(ex);
 
+        } catch (InterruptedException ex) {
+            java.util.logging.Logger.getLogger(CricDataDownloadServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return true;
 
+    }
+
+    private static class DownloadTask implements Runnable {
+
+        private PlayerDownloadTask playerDownloadTask;
+
+        private ICricDataDAO cricOfflineDAO;
+
+        private IURLService urlService;
+
+        private IFileService fileService;
+
+        public DownloadTask(PlayerDownloadTask playerDownloadTask, ICricDataDAO cricOfflineDAO, IURLService urlService, IFileService fileService) {
+            this.playerDownloadTask = playerDownloadTask;
+            this.cricOfflineDAO = cricOfflineDAO;
+            this.urlService = urlService;
+            this.fileService = fileService;
+        }
+
+        @Override
+        public void run() {
+            // surround with try-catch if downloadFile() throws something
+            download();
+        }
+
+        private void download() {
+            try {
+                String playerURL = playerDownloadTask.getDownloadURL();
+                String playerData = urlService.fetch(playerURL);
+                String countryName = playerDownloadTask.getCountryName();
+                String playerName = playerDownloadTask.getPlayerName();
+                fileService.writeFile(cricOfflineDAO.findPlayerPath(countryName,playerName),playerData);
+            } catch (URLServiceException ex) {
+                java.util.logging.Logger.getLogger(CricDataDownloadServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (FileServiceException ex) {
+                java.util.logging.Logger.getLogger(CricDataDownloadServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (DAOException ex) {
+                java.util.logging.Logger.getLogger(CricDataDownloadServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @Override
@@ -243,10 +295,9 @@ public class CricDataDownloadServiceImpl implements ICricDataDownloadService {
 
             this.getCricDataDownloadControlService().touchDownloadControlFile(
                     this.getCricOfflineDAO().findCountryDir(
-                    countryName));
+                            countryName));
 
             this.getFileService().writeFile(countryFileStr, countryData);
-
 
         } catch (FileServiceException ex) {
 
@@ -269,6 +320,100 @@ public class CricDataDownloadServiceImpl implements ICricDataDownloadService {
         }
 
         return countryData;
+    }
+
+    @Override
+    public List<PlayerDownloadTask> downloadPlayerURLs(String countryName) throws DownloadServiceException {
+        final List<PlayerDownloadTask> result = new ArrayList<>();
+        try {
+
+            String countryDetails = this.getCricOfflineDAO().findCountryHTML(countryName);
+
+            if (countryDetails == null || countryDetails.isEmpty()) {
+
+                throw new DownloadServiceException("could not find details for country {" + countryName + "}... check if it plays cricket!!!");
+            }
+
+            new AbstractPlayerDAO() {
+
+                @Override
+                public void playerCallback(String playerName) throws DAOException {
+
+                    try {
+                        String downloadControlDir = getCricOfflineDAO().findCountryDir(
+                                countryName);
+                        getCricDataDownloadControlService().addPendingItemToDownloadControlFile(
+                                downloadControlDir,
+                                playerName);
+
+                        boolean shouldDownloadThisPlayer = getCricDataDownloadControlService().shouldDownload(
+                                downloadControlDir,
+                                playerName);
+                        if (shouldDownloadThisPlayer) {
+
+                            String website = getHawkEyeExecutionContext().getExecutionContext().getConfiguration().getCricketDataProvider().getSoftware().getWebsite();
+
+                            logger.info("downloading data for {" + playerName + "}  from {" + website + "}");
+
+                            long startTime = System.currentTimeMillis();
+                            PlayerDownloadTask playerDownloadTask = new PlayerDownloadTask();
+                            String playerURL = this.getCricWebSiteDAO().findPlayerPath(countryName, playerName);
+                            playerDownloadTask.setCountryName(countryName);
+                            playerDownloadTask.setPlayerName(playerName);
+                            playerDownloadTask.setDownloadURL(playerURL);
+                            System.out.println(playerName);
+                            result.add(playerDownloadTask);
+                            //downloadPlayer(countryName, playerName);
+
+                            long diff = System.currentTimeMillis() - startTime;
+
+                            diff = diff / 1000;
+
+                            logger.info("finished downloading for {" + playerName + "} in {" + diff + "}s");
+
+                        } else {
+
+                            logger.info("not downloading data for {" + playerName + "} !!!");
+                        }
+
+                        getCricDataDownloadControlService().removePendingItemToDownloadControlFile(
+                                downloadControlDir,
+                                playerName);
+
+                        getCricDataDownloadControlService().addFinishedItemToDownloadControlFile(
+                                downloadControlDir,
+                                playerName);
+
+                    } catch (DAOException ex) {
+
+                        logger.error("error occurred", ex);
+
+                        throw new DAOException(ex);
+
+                    } catch (HawkEyeException ex) {
+
+                        logger.error("error occurred", ex);
+
+                        throw new DAOException(ex);
+
+                    }
+                }
+            }.find(countryDetails);
+
+        } catch (DAOException ex) {
+
+            logger.error("error occurred", ex);
+
+            throw new DownloadServiceException(ex);
+
+        } catch (HawkEyeException ex) {
+
+            logger.error("error occurred", ex);
+
+            throw new DownloadServiceException(ex);
+
+        }
+        return result;
     }
 
     @Override
@@ -299,10 +444,10 @@ public class CricDataDownloadServiceImpl implements ICricDataDownloadService {
                                 downloadControlDir,
                                 playerName);
                         if (shouldDownloadThisPlayer) {
-                            
+
                             String website = getHawkEyeExecutionContext().getExecutionContext().getConfiguration().getCricketDataProvider().getSoftware().getWebsite();
-                          
-                            logger.info("downloading data for {" + playerName + "}  from {" + website+ "}");
+
+                            logger.info("downloading data for {" + playerName + "}  from {" + website + "}");
 
                             long startTime = System.currentTimeMillis();
 
@@ -318,7 +463,6 @@ public class CricDataDownloadServiceImpl implements ICricDataDownloadService {
 
                             logger.info("not downloading data for {" + playerName + "} !!!");
                         }
-
 
                         getCricDataDownloadControlService().removePendingItemToDownloadControlFile(
                                 downloadControlDir,
@@ -344,8 +488,6 @@ public class CricDataDownloadServiceImpl implements ICricDataDownloadService {
                 }
             }.find(countryDetails);
 
-
-
         } catch (DAOException ex) {
 
             logger.error("error occurred", ex);
@@ -370,7 +512,6 @@ public class CricDataDownloadServiceImpl implements ICricDataDownloadService {
 
         try {
 
-
             String playerURL = this.getCricWebSiteDAO().findPlayerPath(
                     countryName,
                     playerName);
@@ -379,11 +520,9 @@ public class CricDataDownloadServiceImpl implements ICricDataDownloadService {
 
             this.getFileService().writeFile(
                     this.getCricOfflineDAO().findPlayerPath(
-                    countryName,
-                    playerName),
+                            countryName,
+                            playerName),
                     playerData);
-
-
 
         } catch (DAOException ex) {
 
@@ -404,7 +543,6 @@ public class CricDataDownloadServiceImpl implements ICricDataDownloadService {
             throw new DownloadServiceException(ex);
 
         }
-
 
         return playerData;
     }
