@@ -36,7 +36,7 @@ public interface ICricDataDAO {
 
     public String findCountryDir(String countryName) throws DAOException;
 
-    public String findCountryPath(String countryName) throws DAOException;
+    public List<String> findCountryPath(String countryName) throws DAOException;
 
     public String findCountryHTML(String countrName) throws DAOException;
 

@@ -5,6 +5,7 @@
  */
 package org.cricket.hawkeye.dao;
 
+import java.util.List;
 import org.apache.log4j.Logger;
 import org.cricket.hawkeye.dao.exception.DAOException;
 
@@ -84,7 +85,7 @@ public class CricDataDAOImplProxy extends DefaultCricDataDAOImpl {
      * @throws DAOException
      */
     @Override
-    public String findCountryPath(String countryName) throws DAOException {
+    public List<String> findCountryPath(String countryName) throws DAOException {
         if(!this.isProviderPresent()){
            throw new DataProviderUnavailabilityException("Could not find any data provider");
         }

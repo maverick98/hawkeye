@@ -16,6 +16,9 @@
  */
 package org.cricket.hawkeye.dao.country;
 
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.cricket.hawkeye.dao.exception.DAOException;
 import java.util.regex.Matcher;
 import org.cricket.hawkeye.dao.DataPattern;
@@ -53,15 +56,15 @@ public abstract class AbstractCountryDAO {
         boolean found = false;
 
         Matcher countryMatcher = this.getCountryPattern().getPattern().matcher(countriesHTML);
+        
+            while (countryMatcher.find()) {
 
-        while (countryMatcher.find()) {
+                String countryName = countryMatcher.group(2);
 
-            String countryName = countryMatcher.group(2);
+                    this.countryCallback(countryName);
 
-            this.countryCallback(countryName);
-
-            found = true;
-        }
+                found = true;
+            }
 
         return found;
     }

@@ -16,6 +16,7 @@
  */
 package org.cricket.hawkeye.dao.player;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import org.common.di.AppContainer;
 import org.cricket.hawkeye.dao.DataPattern;
@@ -48,18 +49,18 @@ public abstract class AbstractPlayerDAO {
 
         boolean found = false;
 
-
+        
         Matcher playerMatcher = this.getPlayerPattern().getPattern().matcher(countryDetails);
 
-        while (playerMatcher.find()) {
+            while (playerMatcher.find()) {
 
-            String playerName = playerMatcher.group(2);
+                String playerName = playerMatcher.group(2);
 
-            this.playerCallback(playerName);
+                this.playerCallback(playerName);
 
-            found = true;
+                found = true;
 
-        }
+            }
         if(!found){
             System.out.println("Either player matcher regEx is wrong , or data provider has different expectation");
         }

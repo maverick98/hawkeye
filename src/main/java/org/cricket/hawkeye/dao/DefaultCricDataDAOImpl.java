@@ -34,8 +34,6 @@ import org.cricket.hawkeye.service.url.IURLService;
 import org.cricket.hawkeye.string.IStringService;
 import org.cricket.hawkeye.string.exception.StringServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 
 /**
  *
@@ -59,16 +57,16 @@ public class DefaultCricDataDAOImpl implements ICricDataDAO {
 
     @Autowired(required = true)
     //@Qualifier("default")
-    IURLService urlService ;
+    IURLService urlService;
 
     public IURLService getUrlService() {
         return urlService;
     }
+
     public ICommonService getCommonService() {
         return commonService;
     }
 
-    
     public IFileService getFileService() {
         return fileService;
     }
@@ -109,11 +107,11 @@ public class DefaultCricDataDAOImpl implements ICricDataDAO {
     public String findCountrysHTML() throws DAOException {
         String countriesHTML = null;
 
-        try {
+            try {
             countriesHTML = this.getFileService().readFile(this.findCountrysPath());
-        } catch (FileServiceException ex) {
+            } catch (FileServiceException ex) {
             throw new DAOException(ex);
-        }
+            }
         return countriesHTML;
     }
 
@@ -121,31 +119,32 @@ public class DefaultCricDataDAOImpl implements ICricDataDAO {
     public String findCountryDir(String countryName) throws DAOException {
 
         String countryDir = new StringBuilder(this.findCountrysDir()).append("/").append(countryName).toString();
-        File f = new File(countryDir);
-        if (!f.exists()) {
-            f.mkdirs();
-        }
+            File f = new File(countryDir);
+            if (!f.exists()) {
+                f.mkdirs();
+            }
         String countryFile = new StringBuilder().append(countryDir).toString();
         return countryFile;
     }
 
     @Override
-    public String findCountryPath(String countryName) throws DAOException {
+    public List<String> findCountryPath(String countryName) throws DAOException {
 
         String countryFile = new StringBuilder().append(this.findCountryDir(countryName)).append("/").append(countryName).append(".html").toString();
-
-        return countryFile;
+        List<String> result = new ArrayList<>();
+        result.add(countryFile);
+        return result;
     }
 
     @Override
     public String findCountryHTML(String countryName) throws DAOException {
         String countryHTML = null;
 
-        try {
-            countryHTML = this.getFileService().readFile(this.findCountryPath(countryName));
-        } catch (HawkEyeException ex) {
+            try {
+            countryHTML = this.getFileService().readFile(this.findCountryPath(countryName).get(0));
+            } catch (HawkEyeException ex) {
             throw new DAOException(ex);
-        }
+            }
         return countryHTML;
     }
 
@@ -159,11 +158,11 @@ public class DefaultCricDataDAOImpl implements ICricDataDAO {
     public String findPlayerHTML(String countryName, String playerName) throws DAOException {
         String playerHTML = null;
 
-        try {
+            try {
             playerHTML = this.getFileService().readFile(this.findPlayerPath(countryName, playerName));
-        } catch (HawkEyeException ex) {
+            } catch (HawkEyeException ex) {
             throw new DAOException(ex);
-        }
+            }
         return playerHTML;
     }
 
@@ -221,13 +220,12 @@ public class DefaultCricDataDAOImpl implements ICricDataDAO {
                             }
                         }.find(countryHTML);
                     }
-               }
+                }
             }
         }.find(countriesHTML);
 
         return players;
     }
-
 
     @Override
     public List<String> findPlayers() throws DAOException {
@@ -298,7 +296,7 @@ public class DefaultCricDataDAOImpl implements ICricDataDAO {
         List<String> players = this.findPlayers();
 
         List<String> result = null;
-        
+
         try {
 
             result = this.getStringService().findStringsWithMinimumEditDistance(searchCriteria, players);
@@ -355,7 +353,7 @@ public class DefaultCricDataDAOImpl implements ICricDataDAO {
 
         return result;
     }
-     public ICricDataDAO getCricWebSiteDAO() {
+    public ICricDataDAO getCricWebSiteDAO() {
         return AppContainer.getInstance().getBean("cricWebSiteDAO", ICricDataDAO.class);
     }
     @Override

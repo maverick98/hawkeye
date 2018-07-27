@@ -16,13 +16,12 @@
  */
 package org.cricket.hawkeye.service.download;
 
+import java.util.List;
 import org.cricket.hawkeye.dao.player.AbstractPlayerDAO;
 import org.apache.log4j.Logger;
 import org.common.di.AppContainer;
 import org.cricket.hawkeye.context.IHawkEyeExecutionContext;
-import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.cricket.hawkeye.service.url.IURLService;
 import org.cricket.hawkeye.service.file.exception.FileServiceException;
 
@@ -238,7 +237,7 @@ public class CricDataDownloadServiceImpl implements ICricDataDownloadService {
         String countryData = null;
         try {
 
-            String countryFileStr = this.getCricOfflineDAO().findCountryPath(countryName);
+            String countryFileStr = this.getCricOfflineDAO().findCountryPath(countryName).get(0);
 
             countryData = this.getCricWebSiteDAO().findCountryHTML(countryName);
 
