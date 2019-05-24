@@ -92,10 +92,20 @@
             <artifactId>hawk-commons-event</artifactId>
             <version>18.07</version>
         </dependency>
-               <dependency>
+        <dependency>
             <groupId>org.hawkframework</groupId>
             <artifactId>hawk-core</artifactId>
             <version>18.07</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.13</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.9</version>
         </dependency>
       
       

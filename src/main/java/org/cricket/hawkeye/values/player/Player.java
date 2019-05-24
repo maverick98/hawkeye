@@ -5,6 +5,7 @@ import org.cricket.hawkeye.codegen.annotation.Entity;
 import java.util.Set;
 import java.util.TreeSet;
 import org.apache.log4j.Logger;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.cricket.hawkeye.codegen.annotation.AggregateClause;
 import org.cricket.hawkeye.codegen.annotation.ComparisionClause;
 import org.cricket.hawkeye.string.IStringService;
@@ -21,6 +22,8 @@ import org.cricket.hawkeye.codegen.SourceVO;
 public class Player implements SourceVO {
 
     private static final Logger logger = Logger.getLogger(Player.class);
+    
+    @JsonIgnore
     IStringService stringService = new StringServiceImpl(new LevenshteinDistanceAlgorithm());
         @HQLGenerate(
             comparision =
@@ -60,6 +63,7 @@ public class Player implements SourceVO {
             sum = false,
             stddev = false,
             variance = false))
+    @JsonIgnore    
     private Set<org.cricket.hawkeye.db.Inning> innings = new TreeSet<org.cricket.hawkeye.db.Inning>();
 
     public Set<org.cricket.hawkeye.db.Inning> getInnings() {
@@ -144,18 +148,19 @@ public class Player implements SourceVO {
         sb.append(" ,no of innings = ").append(this.getInnings().size());
         return sb.toString();
     }
-
+    @JsonIgnore    
     @Override
     public String getEntityOutputJavaFile() {
         String outputClazz = "./src/main/java/org/cricket/hawkeye/db/Player.java";
         return outputClazz;
     }
+    @JsonIgnore    
     @Override
     public String getTableOutputJavaFile() {
         String outputClazz = "./src/main/java/org/cricket/hawkeye/db/Players.java";
         return outputClazz;
     }
-    
+    @JsonIgnore        
     @Override
     public String getFetcherOutputJavaFile() {
         String outputClazz = "./src/main/java/org/cricket/hawkeye/db/PlayerFetcher.java";

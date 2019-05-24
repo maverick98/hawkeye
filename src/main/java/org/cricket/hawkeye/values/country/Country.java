@@ -4,6 +4,7 @@ import org.cricket.hawkeye.values.player.Player;
 import java.util.HashSet;
 import java.util.Set;
 import org.apache.log4j.Logger;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.cricket.hawkeye.codegen.annotation.AggregateClause;
 import org.cricket.hawkeye.codegen.annotation.ComparisionClause;
 import org.cricket.hawkeye.codegen.annotation.HQLGenerate;
@@ -22,6 +23,7 @@ import org.cricket.hawkeye.codegen.SourceVO;
 public class Country implements SourceVO {
 
     private static final Logger logger = Logger.getLogger(Player.class);
+    @JsonIgnore    
     IStringService stringService = new StringServiceImpl(new LevenshteinDistanceAlgorithm());
      @HQLGenerate(
             comparision =
@@ -149,18 +151,19 @@ public class Country implements SourceVO {
 
         return editDistance < 10;
     }
-
+    @JsonIgnore    
     @Override
     public String getEntityOutputJavaFile() {
         String outputClazz = "./src/main/java/org/cricket/hawkeye/db/Country.java";
         return outputClazz;
     }
+    @JsonIgnore    
      @Override
     public String getTableOutputJavaFile() {
         String outputClazz = "./src/main/java/org/cricket/hawkeye/db/Countrys.java";
         return outputClazz;
     }
-    
+    @JsonIgnore    
     @Override
     public String getFetcherOutputJavaFile() {
         String outputClazz = "./src/main/java/org/cricket/hawkeye/db/CountryFetcher.java";

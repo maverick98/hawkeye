@@ -2,6 +2,7 @@ package org.cricket.hawkeye.values.ground;
 
 import org.cricket.hawkeye.values.player.Player;
 import org.apache.log4j.Logger;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.cricket.hawkeye.codegen.annotation.AggregateClause;
 import org.cricket.hawkeye.codegen.annotation.ComparisionClause;
 import org.cricket.hawkeye.codegen.annotation.Entity;
@@ -21,6 +22,7 @@ import org.cricket.hawkeye.codegen.SourceVO;
 public class Ground implements SourceVO {
 
     private static final Logger logger = Logger.getLogger(Player.class);
+    @JsonIgnore    
     IStringService stringService = new StringServiceImpl(new LevenshteinDistanceAlgorithm());
          @HQLGenerate(
             comparision =
@@ -153,18 +155,19 @@ public class Ground implements SourceVO {
 
         return editDistance < 5;
     }
-
+    @JsonIgnore    
     @Override
     public String getEntityOutputJavaFile() {
         String outputClazz = "./src/main/java/org/cricket/hawkeye/db/Ground.java";
         return outputClazz;
     }
+    @JsonIgnore    
      @Override
     public String getTableOutputJavaFile() {
         String outputClazz = "./src/main/java/org/cricket/hawkeye/db/Grounds.java";
         return outputClazz;
     }
-    
+    @JsonIgnore    
     @Override
     public String getFetcherOutputJavaFile() {
         String outputClazz = "./src/main/java/org/cricket/hawkeye/db/GroundFetcher.java";

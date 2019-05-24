@@ -1,10 +1,11 @@
 package org.cricket.hawkeye.values.inning;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.cricket.hawkeye.values.player.Player;
 import org.cricket.hawkeye.codegen.annotation.HQLGenerate;
 import org.cricket.hawkeye.codegen.annotation.Entity;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.cricket.hawkeye.codegen.annotation.AggregateClause;
 import org.cricket.hawkeye.codegen.annotation.ComparisionClause;
@@ -17,8 +18,9 @@ import org.cricket.hawkeye.codegen.SourceVO;
  * @author msahu
  */
 @Entity(ownLikeImpl = false)
+ @JsonSerialize(using = InningSerializer.class)
 public class Inning implements SourceVO {
-
+    
     @HQLGenerate(
             field = "name",
             comparision =
@@ -420,18 +422,19 @@ public class Inning implements SourceVO {
         return this.getPlayer().like(otherPlayer);
 
     }
-
+    @JsonIgnore    
     @Override
     public String getEntityOutputJavaFile() {
         String outputClazz = "./src/main/java/org/cricket/hawkeye/db/Inning.java";
         return outputClazz;
     }
-     @Override
+    @JsonIgnore    
+    @Override
     public String getTableOutputJavaFile() {
         String outputClazz = "./src/main/java/org/cricket/hawkeye/db/Innings.java";
         return outputClazz;
     }
-    
+    @JsonIgnore    
     @Override
     public String getFetcherOutputJavaFile() {
         String outputClazz = "./src/main/java/org/cricket/hawkeye/db/InningFetcher.java";
