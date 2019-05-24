@@ -1,3 +1,0 @@
-
-@SubTask(name = "countInnings", sequence = 1, ignoreException = false, hawkParam = "var innings")public     int countInnings (Object ... args ){Set<Player> input = null;if ( args[0] != null){input  = (Set<Player> ) args[0];}Set<Player> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getPlayers().getAll();}return (int)tmpSet.stream().count();}
-

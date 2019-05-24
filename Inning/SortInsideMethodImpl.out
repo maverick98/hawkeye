@@ -1,9 +1,0 @@
-
-@SubTask(name = "sortPlayerName ", sequence = 1, ignoreException = false, hawkParam = "var innings,var #TYPEINSIDEFIELDINSTANCE# ")public     Inning [] sortPlayerName (Object ... args ){if(args == null || args.length == 0){return null;}Set<Inning> input = null;input  = (Set<Inning> ) args[0];Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}Comparator<Inning> cmp = java.util.Comparator.comparing(Inning::getPlayerName);return tmpSet.stream().sorted(cmp).toArray(size->new Inning[size]);}
-
-
-@SubTask(name = "sortOppositionName ", sequence = 1, ignoreException = false, hawkParam = "var innings,var #TYPEINSIDEFIELDINSTANCE# ")public     Inning [] sortOppositionName (Object ... args ){if(args == null || args.length == 0){return null;}Set<Inning> input = null;input  = (Set<Inning> ) args[0];Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}Comparator<Inning> cmp = java.util.Comparator.comparing(Inning::getOppositionName);return tmpSet.stream().sorted(cmp).toArray(size->new Inning[size]);}
-
-
-@SubTask(name = "sortGroundName ", sequence = 1, ignoreException = false, hawkParam = "var innings,var #TYPEINSIDEFIELDINSTANCE# ")public     Inning [] sortGroundName (Object ... args ){if(args == null || args.length == 0){return null;}Set<Inning> input = null;input  = (Set<Inning> ) args[0];Set<Inning> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getInnings().getAll();}Comparator<Inning> cmp = java.util.Comparator.comparing(Inning::getGroundName);return tmpSet.stream().sorted(cmp).toArray(size->new Inning[size]);}
-

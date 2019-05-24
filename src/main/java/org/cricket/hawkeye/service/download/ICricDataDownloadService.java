@@ -18,6 +18,8 @@
 
 package org.cricket.hawkeye.service.download;
 
+import java.util.List;
+import org.cricket.hawkeye.dao.PlayerDownloadTask;
 import org.cricket.hawkeye.service.download.exception.DownloadServiceException;
 
 /**
@@ -60,6 +62,9 @@ public interface ICricDataDownloadService {
      * @throws DownloadServiceException
      */
     public boolean downloadCountry(String countryName) throws DownloadServiceException;
+    
+    
+    public List<PlayerDownloadTask> downloadPlayerURLs(String countryName) throws DownloadServiceException;
 
     /**
      * This downloads the data of a player of this country.
@@ -69,7 +74,7 @@ public interface ICricDataDownloadService {
      * @throws DownloadServiceException
      */
     public String downloadPlayer(String countryName,String playerName) throws DownloadServiceException;
-
-
     
+
+
 }

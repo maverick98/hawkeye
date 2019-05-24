@@ -1,3 +1,0 @@
-
-@SubTask(name = "sortName ", sequence = 1, ignoreException = false, hawkParam = "var innings,var name ")public     Player [] sortName (Object ... args ){if(args == null || args.length == 0){return null;}Set<Player> input = null;input  = (Set<Player> ) args[0];Set<Player> tmpSet = null;if(input != null && !input.isEmpty() ){tmpSet = input;}else{tmpSet = this.getPlayers().getAll();}Comparator<Player> cmp = java.util.Comparator.comparing(Player::getName);return tmpSet.stream().sorted(cmp).toArray(size->new Player[size]);}
-

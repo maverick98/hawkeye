@@ -1,9 +1,0 @@
-
-@SubTask(name = "moreThanPlayerName ", sequence = 1, ignoreException = false, hawkParam = "var innings ,var name ")public      Set<Inning> moreThanPlayerName ( Object ... args ){Set<Inning> input = null;java.lang.String  name = null;if(args == null || args.length == 0){return null;}if(args.length == 2){if ( args[0] != null){input  = (Set<Inning> ) args[0];}if ( args[1] != null){name = ( java.lang.String ) args[1];}}else if(args.length == 1){name = ( java.lang.String ) args[0];}org.cricket.hawkeye.db.Player  player  = new org.cricket.hawkeye.db.Player ();player . setName ( name );return moreThanPlayer (input , player );}
-
-
-@SubTask(name = "moreThanOppositionName ", sequence = 1, ignoreException = false, hawkParam = "var innings ,var name ")public      Set<Inning> moreThanOppositionName ( Object ... args ){Set<Inning> input = null;java.lang.String  name = null;if(args == null || args.length == 0){return null;}if(args.length == 2){if ( args[0] != null){input  = (Set<Inning> ) args[0];}if ( args[1] != null){name = ( java.lang.String ) args[1];}}else if(args.length == 1){name = ( java.lang.String ) args[0];}org.cricket.hawkeye.db.Country  opposition  = new org.cricket.hawkeye.db.Country ();opposition . setName ( name );return moreThanOpposition (input , opposition );}
-
-
-@SubTask(name = "moreThanGroundName ", sequence = 1, ignoreException = false, hawkParam = "var innings ,var name ")public      Set<Inning> moreThanGroundName ( Object ... args ){Set<Inning> input = null;java.lang.String  name = null;if(args == null || args.length == 0){return null;}if(args.length == 2){if ( args[0] != null){input  = (Set<Inning> ) args[0];}if ( args[1] != null){name = ( java.lang.String ) args[1];}}else if(args.length == 1){name = ( java.lang.String ) args[0];}org.cricket.hawkeye.db.Ground  ground  = new org.cricket.hawkeye.db.Ground ();ground . setName ( name );return moreThanGround (input , ground );}
-
