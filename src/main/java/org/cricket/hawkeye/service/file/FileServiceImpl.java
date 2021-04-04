@@ -159,7 +159,7 @@ public class FileServiceImpl implements IFileService {
 
         try {
 
-            if (fileData == null || fileData.isEmpty()) {
+            if (fileName == null || fileName.isEmpty()) {
 
                 throw new FileServiceException("unable to read file {" + fileName + "}");
 
