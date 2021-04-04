@@ -4,7 +4,7 @@
     <groupId>org</groupId>
     <artifactId>hawkeye</artifactId>
     <packaging>jar</packaging>
-    <version>18.07</version>
+    <version>21.04</version>
     <name>hawkeye</name>
     <url>http://maven.apache.org</url>
     <build>
@@ -85,17 +85,17 @@
         <dependency>
             <groupId>org.hawkframework</groupId>
             <artifactId>hawk-commons-util</artifactId>
-            <version>18.07</version>
+            <version>21.04</version>
         </dependency>
         <dependency>
             <groupId>org.hawkframework</groupId>
             <artifactId>hawk-commons-event</artifactId>
-            <version>18.07</version>
+            <version>21.04</version>
         </dependency>
         <dependency>
             <groupId>org.hawkframework</groupId>
             <artifactId>hawk-core</artifactId>
-            <version>18.07</version>
+            <version>21.04</version>
         </dependency>
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
@@ -105,7 +105,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.9.9</version>
+            <version>2.10.1</version>
         </dependency>
       
       
