@@ -224,7 +224,7 @@ public class CricDataPersistenceServiceImpl implements ICricDataPersistenceServi
                         break;
 
                     case 5:
-                        inning.setStrikeRate(td.equals("-") ? 0 : Float.parseFloat(td));
+                        inning.setStrikeRate(td.equals("-") ? 0 : Double.parseDouble(td));
 
                         break;
 

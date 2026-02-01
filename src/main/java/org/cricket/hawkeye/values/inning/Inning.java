@@ -90,7 +90,7 @@ public class Inning implements SourceVO {
             like = false),
             aggregate =@AggregateClause
             )
-    public Float strikeRate = new Float(0.0);
+    public Double strikeRate = new Double(0.0);
     @HQLGenerate(
             comparision =
             @ComparisionClause(
@@ -338,11 +338,11 @@ public class Inning implements SourceVO {
         this.startDate = startDate;
     }
 
-    public Float getStrikeRate() {
+    public Double getStrikeRate() {
         return strikeRate;
     }
 
-    public void setStrikeRate(Float strikeRate) {
+    public void setStrikeRate(Double strikeRate) {
         this.strikeRate = strikeRate;
     }
 

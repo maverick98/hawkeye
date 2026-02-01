@@ -53,7 +53,7 @@ public class Inning extends org.cricket.hawkeye.values.inning.Inning implements 
         this.setBallFaced((java.lang.Integer) in.readObject());
         this.setFours((java.lang.Integer) in.readObject());
         this.setSixes((java.lang.Integer) in.readObject());
-        this.setStrikeRate((java.lang.Float) in.readObject());
+        this.setStrikeRate((java.lang.Double) in.readObject());
         this.setPositions((java.lang.Integer) in.readObject());
         this.setDismissalType((org.cricket.hawkeye.codegen.constant.DismissalType) in.readObject());
         this.setInnings((java.lang.Integer) in.readObject());

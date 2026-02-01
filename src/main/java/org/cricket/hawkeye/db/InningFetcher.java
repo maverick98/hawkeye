@@ -347,7 +347,7 @@ public class InningFetcher extends HawkPluginModule {
     @SubTask(name = "moreThanStrikeRate ", sequence = 1, ignoreException = false, hawkParam = "var innings,var strikeRate ")
     public Set<Inning> moreThanStrikeRate(Object... args) {
         Set<Inning> input = null;
-        java.lang.Float strikeRate = null;
+        java.lang.Double strikeRate = null;
         if (args == null || args.length == 0) {
             return null;
         }
@@ -356,10 +356,10 @@ public class InningFetcher extends HawkPluginModule {
                 input = (Set<Inning>) args[0];
             }
             if (args[1] != null) {
-                strikeRate = (java.lang.Float) args[1];
+                strikeRate = (java.lang.Double) args[1];
             }
         } else if (args.length == 1) {
-            strikeRate = (java.lang.Float) args[0];
+            strikeRate = (java.lang.Double) args[0];
         }
         Set<Inning> result = new TreeSet<Inning>();
         for (Inning inning : this.getInnings().getAll()) {
@@ -1001,7 +1001,7 @@ public class InningFetcher extends HawkPluginModule {
     @SubTask(name = "lessThanStrikeRate ", sequence = 1, ignoreException = false, hawkParam = "var innings,var strikeRate ")
     public Set<Inning> lessThanStrikeRate(Object... args) {
         Set<Inning> input = null;
-        java.lang.Float strikeRate = null;
+        java.lang.Double strikeRate = null;
         if (args == null || args.length == 0) {
             return null;
         }
@@ -1010,10 +1010,10 @@ public class InningFetcher extends HawkPluginModule {
                 input = (Set<Inning>) args[0];
             }
             if (args[1] != null) {
-                strikeRate = (java.lang.Float) args[1];
+                strikeRate = (java.lang.Double) args[1];
             }
         } else if (args.length == 1) {
-            strikeRate = (java.lang.Float) args[0];
+            strikeRate = (java.lang.Double) args[0];
         }
         Set<Inning> result = new TreeSet<Inning>();
         for (Inning inning : this.getInnings().getAll()) {
