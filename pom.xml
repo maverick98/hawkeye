@@ -1,14 +1,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>org</groupId>
     <artifactId>hawkeye</artifactId>
     <version>26.03</version>
     <packaging>jar</packaging>
+
     <name>hawkeye</name>
 
+    <!-- ================= PROPERTIES ================= -->
     <properties>
         <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -25,48 +29,53 @@
                 <version>3.11.0</version>
                 <configuration>
                     <release>21</release>
-                    <showDeprecation>true</showDeprecation>
                 </configuration>
             </plugin>
 
-            <!-- Modern resources plugin -->
+            <!-- Clean -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.3.2</version>
+            </plugin>
+
+            <!-- Resources -->
+            <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>3.3.1</version>
             </plugin>
 
-            <!-- Fat JAR builder -->
+            <!-- FAT JAR (Recommended over assembly long-term, but keeping yours clean) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.6.0</version>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <finalName>hawk-eye</finalName>
-                    <appendAssemblyId>false</appendAssemblyId>
-                    <archive>
-                        <manifest>
-                            <mainClass>org.cricket.hawkeye.App</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.0</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
                         <goals>
-                            <goal>single</goal>
+                            <goal>shade</goal>
                         </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>org.cricket.hawkeye.App</mainClass>
+                                </transformer>
+                            </transformers>
+                            <finalName>hawk-eye</finalName>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
 
-            <!-- Cleaner -->
+            <!-- Modern exec plugin (safe version) -->
             <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>3.3.2</version>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <mainClass>org.cricket.hawkeye.App</mainClass>
+                </configuration>
             </plugin>
 
         </plugins>
@@ -75,42 +84,52 @@
     <!-- ================= DEPENDENCIES ================= -->
     <dependencies>
 
-        <!-- Hawk Framework Modules (your upgraded ones) -->
+        <!-- Hawk Framework -->
         <dependency>
             <groupId>org.hawkframework</groupId>
             <artifactId>hawk-commons-util</artifactId>
             <version>26.03</version>
         </dependency>
+
         <dependency>
             <groupId>org.hawkframework</groupId>
             <artifactId>hawk-commons-event</artifactId>
             <version>26.03</version>
         </dependency>
+
         <dependency>
             <groupId>org.hawkframework</groupId>
             <artifactId>hawk-core</artifactId>
             <version>26.03</version>
         </dependency>
 
-        <!-- Spring (still fine on JDK21) -->
+        <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>5.3.34</version>
         </dependency>
 
-        <!-- Logging (Log4j 2 bridge keeps old log calls working) -->
+        <!-- Log4j2 -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>2.23.1</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>2.23.1</version>
         </dependency>
-        <!-- JAXB (javax namespace — required for XmlRootElement) -->
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-1.2-api</artifactId>
+            <version>2.23.1</version>
+        </dependency>
+
+        <!-- JAXB (for XmlRootElement) -->
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
@@ -129,12 +148,7 @@
             <version>1.2.2</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-1.2-api</artifactId>
-            <version>2.23.1</version>
-        </dependency>
-        <!-- Jackson 1.x (legacy API your code uses) -->
+        <!-- Legacy Jackson 1.x -->
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-core-asl</artifactId>
@@ -147,18 +161,18 @@
             <version>1.9.13</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.esotericsoftware</groupId>
-            <artifactId>kryo</artifactId>
-            <version>5.5.0</version>
-        </dependency>
-
-
-        <!-- Jackson -->
+        <!-- Modern Jackson -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.17.0</version>
+        </dependency>
+
+        <!-- Kryo -->
+        <dependency>
+            <groupId>com.esotericsoftware</groupId>
+            <artifactId>kryo</artifactId>
+            <version>5.5.0</version>
         </dependency>
 
         <!-- JUnit -->

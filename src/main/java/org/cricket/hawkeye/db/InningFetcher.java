@@ -1,5 +1,4 @@
-/**
- * This file was generated at Tue Feb 23 13:48:11 IST 2021*Don't you dare edit this file.You will regret it if you do!!!* This file is part of hawkeye* CopyLeft (C) BigBang<->BigCrunch
+/** This file was generated at Sat Feb 07 19:39:50 IST 2026*Don't you dare edit this file.You will regret it if you do!!!* This file is part of hawkeye* CopyLeft (C) BigBang<->BigCrunch
  * Manoranjan Sahu, All Rights are left.*
  */package org.cricket.hawkeye.db;
 
@@ -3040,7 +3039,7 @@ public class InningFetcher extends HawkPluginModule {
     @SubTask(name = "equalStrikeRate ", sequence = 1, ignoreException = false, hawkParam = "var innings,var strikeRate ")
     public Set<Inning> equalStrikeRate(Object... args) {
         Set<Inning> input = null;
-        java.lang.Float strikeRate = null;
+        java.lang.Double strikeRate = null;
         if (args == null || args.length == 0) {
             return null;
         }
@@ -3049,10 +3048,10 @@ public class InningFetcher extends HawkPluginModule {
                 input = (Set<Inning>) args[0];
             }
             if (args[1] != null) {
-                strikeRate = (java.lang.Float) args[1];
+                strikeRate = (java.lang.Double) args[1];
             }
         } else if (args.length == 1) {
-            strikeRate = (java.lang.Float) args[0];
+            strikeRate = (java.lang.Double) args[0];
         }
         Set<Inning> result = new TreeSet<Inning>();
         for (Inning inning : this.getInnings().getAll()) {
