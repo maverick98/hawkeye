@@ -26,6 +26,29 @@
     <pluginModuleClazz>
         <clazz>org.cricket.hawkeye.db.PlayerFetcher</clazz>
     </pluginModuleClazz>
+	
+	<ai>
+    <tool>
+        <name>executeHawk</name>
+        <description>Generate Hawk DSL program</description>
+        <inputSchema>
+            <field>
+                <name>code</name>
+                <type>string</type>
+            </field>
+        </inputSchema>
+        <outputSchema>
+            <field>
+                <name>code</name>
+                <type>string</type>
+            </field>
+        </outputSchema>
+        <promptFile>ai/prompt.txt</promptFile>
+        <strict>true</strict>
+    </tool>
+</ai>
+
+	
     <software>
         <about>This is a software about analyzing cricket data collected from cricinfo.com</about>
         <category>Sports Analytics</category>
