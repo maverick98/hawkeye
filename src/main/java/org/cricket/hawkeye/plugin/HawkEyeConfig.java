@@ -17,7 +17,7 @@
 package org.cricket.hawkeye.plugin;
 
 import java.util.Date;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import org.commons.file.FileUtil;
 import org.hawk.plugin.metadata.Classpath;
 import org.hawk.plugin.metadata.Configuration;

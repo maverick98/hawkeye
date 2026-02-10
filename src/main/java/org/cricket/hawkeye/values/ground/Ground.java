@@ -1,8 +1,9 @@
 package org.cricket.hawkeye.values.ground;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.cricket.hawkeye.values.player.Player;
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.annotate.JsonIgnore;
+
 import org.cricket.hawkeye.codegen.annotation.AggregateClause;
 import org.cricket.hawkeye.codegen.annotation.ComparisionClause;
 import org.cricket.hawkeye.codegen.annotation.Entity;

@@ -68,24 +68,27 @@ public class HawkEyePluginConfig implements IHawkPluginConfig {
     @Override
     public boolean onLoad(HawkPlugin hawkPlugin) throws HawkPluginException {
         try {
-            ClassPathHacker.addFile
-                            (
-                                        this.getJarPaths
-                                            (
-                                                    ((HawkEyePluginConfiguration) hawkPlugin.getConfig())
-                                                            .getCricketDataProvider()
-                                                            .getClasspath()
-                                                            .getJar()
-                                                    ,
-                                                    hawkPlugin.getPluginHome()
-                                            )
-                                    
-                            );
-        } catch ( Exception ex) {
+            ClassPathHacker.addFile(
+                    this.getJarPaths(
+                            ((HawkEyePluginConfiguration) hawkPlugin.getConfig())
+                                    .getCricketDataProvider()
+                                    .getClasspath()
+                                    .getJar(),
+                            hawkPlugin.getPluginHome()
+                    )
+            );
+
+            // Make plugin classes visible to reflection / DI / Spring
+            Thread.currentThread().setContextClassLoader(
+                    ClassPathHacker.getPluginClassLoader()
+            );
+
+        } catch (Exception ex) {
             throw new HawkPluginException(ex);
         }
         return true;
     }
+
 
     @Override
     public boolean configure(HawkPlugin hawkPlugin) throws HawkPluginException {

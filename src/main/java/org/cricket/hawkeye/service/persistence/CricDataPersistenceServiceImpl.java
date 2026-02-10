@@ -26,7 +26,8 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.cricket.hawkeye.codegen.constant.DismissalType;
 import org.cricket.hawkeye.dao.ICricDataDAO;
 import org.cricket.hawkeye.dao.exception.DAOException;

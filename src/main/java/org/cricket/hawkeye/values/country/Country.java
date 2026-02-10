@@ -1,10 +1,11 @@
 package org.cricket.hawkeye.values.country;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.cricket.hawkeye.values.player.Player;
 import java.util.HashSet;
 import java.util.Set;
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.annotate.JsonIgnore;
+
 import org.cricket.hawkeye.codegen.annotation.AggregateClause;
 import org.cricket.hawkeye.codegen.annotation.ComparisionClause;
 import org.cricket.hawkeye.codegen.annotation.HQLGenerate;

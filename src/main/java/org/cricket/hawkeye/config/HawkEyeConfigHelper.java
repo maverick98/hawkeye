@@ -105,24 +105,43 @@ public class HawkEyeConfigHelper  {
         return true;
     }
 
-    private ICricDataDAO getProviderCricDataDAO(HawkEyePluginConfiguration hawkEyePluginConfig) {
-        String cricDataDAOStr = hawkEyePluginConfig.getCricketDataProvider().getCricDataDAO();
-        try {
-            ClassPathHacker.addFile(hawkEyePluginConfig.getCricketDataProvider().getClasspath().getJar().get(0).getPath());
-        } catch (Exception ex) {
-            Logger.getLogger(HawkEyeConfigHelper.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        ICricDataDAO cricDataDAO = null;
-        try {
-            Class cricDataDAOClazz;
-            cricDataDAOClazz = ClazzUtil.loadClass(cricDataDAOStr);
+    private ICricDataDAO getProviderCricDataDAO(
+        HawkEyePluginConfiguration hawkEyePluginConfig) {
 
-            cricDataDAO = ClazzUtil.instantiate(cricDataDAOClazz, ICricDataDAO.class);
+        String cricDataDAOStr =
+                hawkEyePluginConfig.getCricketDataProvider().getCricDataDAO();
+
+        try {
+            ClassPathHacker.addFile(
+                    hawkEyePluginConfig.getCricketDataProvider()
+                            .getClasspath()
+                            .getJar()
+                            .get(0)
+                            .getPath()
+            );
         } catch (Exception ex) {
-            Logger.getLogger(HawkEyeConfigHelper.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HawkEyeConfigHelper.class.getName())
+                    .log(Level.SEVERE, null, ex);
         }
-        return cricDataDAO;
+
+        try {
+            Class<?> cricDataDAOClazz = Class.forName(
+                    cricDataDAOStr,
+                    true,
+                    ClassPathHacker.getPluginClassLoader()
+            );
+
+            return (ICricDataDAO)
+                    cricDataDAOClazz.getDeclaredConstructor().newInstance();
+
+        } catch (Exception ex) {
+            Logger.getLogger(HawkEyeConfigHelper.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
+
+        return null;
     }
+
 
   
 

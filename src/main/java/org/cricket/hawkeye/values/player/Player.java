@@ -1,11 +1,11 @@
 package org.cricket.hawkeye.values.player;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.cricket.hawkeye.codegen.annotation.HQLGenerate;
 import org.cricket.hawkeye.codegen.annotation.Entity;
 import java.util.Set;
 import java.util.TreeSet;
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.cricket.hawkeye.codegen.annotation.AggregateClause;
 import org.cricket.hawkeye.codegen.annotation.ComparisionClause;
 import org.cricket.hawkeye.string.IStringService;

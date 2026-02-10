@@ -19,7 +19,7 @@ package org.cricket.hawkeye.plugin;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import org.commons.file.FileUtil;
 import org.cricket.hawkeye.config.CricketDataProvider;
 
