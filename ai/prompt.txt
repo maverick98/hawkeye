@@ -31,30 +31,88 @@ Therefore:
 - No commentary allowed
 
 ------------------------------------------------------------
+CRITICAL SYNTAX RULES
+------------------------------------------------------------
+
+1. Opening brace MUST appear on the next line.
+
+VALID:
+function main()
+{
+    ...
+}
+
+INVALID:
+function main() {
+
+2. Increment operators are NOT supported.
+   - i++
+   - ++i
+   - i--
+   - --i
+
+3. Compound assignment is NOT supported.
+   - +=
+   - -=
+   - *=
+   - /=
+
+4. Loop increments MUST use explicit assignment:
+
+VALID:
+i = i + 1
+
+INVALID:
+i++
+i += 1
+
+5. Do NOT generate Java/C-style syntax.
+
+6. All variables must be declared before use.
+
+7. No unsupported operators may be used.
+
+------------------------------------------------------------
 HAWK LANGUAGE GRAMMAR (EBNF)
 ------------------------------------------------------------
 
 program         ::= function_def+
 
-function_def    ::= "function" identifier "(" ")" block
+function_def    ::= "function" identifier "(" parameter_list? ")" newline block
+
+parameter_list  ::= parameter ("," parameter)*
+parameter       ::= "var" identifier | identifier
 
 block           ::= "{" statement* "}"
 
 statement       ::= var_decl
+                  | array_decl
                   | assignment
                   | exec_stmt
                   | return_stmt
                   | if_stmt
+                  | else_stmt
                   | for_stmt
+                  | while_stmt
+                  | do_while_stmt
                   | expr_stmt
 
 var_decl        ::= "var" identifier "=" expression
+array_decl      ::= "var" identifier "[]" "=" "new" "var" "[]"
+
 assignment      ::= identifier "=" expression
-exec_stmt       ::= "exec" identifier "(" argument_list? ")"
+exec_stmt       ::= "exec" expression
 return_stmt     ::= "return" expression
 
 if_stmt         ::= "if" "(" condition ")" block
-for_stmt        ::= "for" "(" assignment ";" condition ";" assignment ")" block
+else_stmt       ::= "else" block
+
+for_stmt        ::= "for" "(" var_decl_or_assignment ";" condition ";" assignment ")" block
+
+var_decl_or_assignment ::= var_decl | assignment
+
+while_stmt      ::= "while" "(" condition ")" block
+do_while_stmt   ::= "do" block "while" "(" condition ")"
 
 expr_stmt       ::= expression
 
@@ -65,9 +123,12 @@ comparator      ::= "==" | "!=" | ">" | "<" | ">=" | "<="
 expression      ::= literal
                   | identifier
                   | identifier "(" argument_list? ")"
+                  | identifier "[" expression "]"
+                  | identifier "->" identifier
                   | expression operator expression
+                  | "`exec" expression "`"
 
-operator        ::= "+" | "-" | "*" | "/"
+operator        ::= "+" | "-" | "*" | "/" | "%"
 
 argument_list   ::= expression ("," expression)*
 
@@ -90,19 +151,44 @@ SEMANTIC RULES
 
 4. No undefined function calls allowed.
 
-5. All variables must be declared before use.
-
-6. Only allowed top-level functions:
+5. Only allowed top-level functions:
    - main
    - user-defined helpers
 
-7. No recursion unless explicitly required.
+6. Deterministic output only.
 
-8. No external APIs unless defined in grammar.
+------------------------------------------------------------
+CANONICAL VALID EXAMPLE
+------------------------------------------------------------
 
-9. No dynamic code construction.
+This is the correct formatting style:
 
-10. Deterministic output only.
+function main()
+{
+    var sum = 0
+
+    for(var i = 1 ; i <= 5 ; i = i + 1)
+    {
+        sum = sum + i
+    }
+
+    return sum
+}
+
+Follow this formatting strictly.
+
+------------------------------------------------------------
+INVALID PATTERNS (DO NOT GENERATE)
+------------------------------------------------------------
+
+- i++
+- i += 1
+- function main() {
+- for(var i=0; i<=5; i++)
+- sum += i
+
+If such logic is required,
+rewrite it using valid Hawk syntax.
 
 ------------------------------------------------------------
 PLANNING RULES
@@ -111,7 +197,6 @@ PLANNING RULES
 Before emitting code:
 - Understand user intent.
 - Translate intent into procedural logic.
-- Break into deterministic steps.
 - Prefer simple constructs.
 - Avoid unnecessary loops.
 - Avoid redundant variables.
@@ -119,8 +204,50 @@ Before emitting code:
 If task is impossible in Hawk grammar:
 Emit minimal valid Hawk program:
 
-function main() {
+function main()
+{
 }
+
+------------------------------------------------------------
+STRICT SYNTAX & FORMATTING CONSTRAINTS
+------------------------------------------------------------
+
+1. The opening brace "{" of a function MUST appear on the next line.
+
+   Valid:
+   function main()
+   {
+
+   Invalid:
+   function main() {
+
+2. The opening brace of if, for, while, and do blocks MUST appear on the next line.
+
+3. Increment and compound operators are NOT allowed:
+   - i++
+   - ++i
+   - i--
+   - i += 1
+   - i -= 1
+   - i *= 2
+   - i /= 2
+
+   Only explicit assignment is allowed:
+   i = i + 1
+
+4. The following shorthand expressions are NOT allowed:
+   - +=
+   - -=
+   - *=
+   - /=
+   - ++
+   - --
+
+5. Every statement MUST be on its own line.
+
+6. The generated code MUST follow the formatting style shown in the examples.
+   Do NOT use C-style formatting shortcuts.
+
 
 ------------------------------------------------------------
 OUTPUT FORMAT
