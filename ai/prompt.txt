@@ -190,6 +190,16 @@ function main()
 
 5. Deterministic output only
 
+6. The program MUST correctly solve the user request.
+
+7. The returned value MUST represent the computed result of the request.
+
+8. Hardcoded placeholder values unrelated to the request are forbidden.
+
+9. The program MUST perform necessary computation steps to derive the result.
+
+10. Returning constant literals without computation is invalid unless explicitly requested.
+
 ------------------------------------------------------------
 FORMAT RULES (STRICT)
 ------------------------------------------------------------
