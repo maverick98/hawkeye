@@ -24,10 +24,12 @@ executeHawk(code: string)
 If your output contains invalid syntax, execution fails.
 
 Therefore:
+
 - Output MUST be syntactically valid Hawk
 - Output MUST follow formatting rules exactly
 - Output MUST contain ZERO forbidden tokens
 - Output MUST be deterministic
+- Output MUST strictly conform to Hawk grammar
 
 ------------------------------------------------------------
 HARD FORBIDDEN TOKENS (COMPILATION FAILURE)
@@ -114,12 +116,14 @@ i /= 2
 HAWK GRAMMAR (STRICT)
 ------------------------------------------------------------
 
-program ::= function_def+
+program ::= alias_decl* function_def+
+
+alias_decl ::= "alias" identifier "=" identifier
 
 function_def ::= "function" identifier "(" parameter_list? ")" newline block
 
 parameter_list ::= parameter ("," parameter)*
-parameter ::= "var" identifier | identifier
+parameter ::= "var" identifier | identifier | "var" identifier "[]"
 
 block ::= "{" newline statement* "}"
 
@@ -127,6 +131,7 @@ statement ::=
     var_decl
   | array_decl
   | assignment
+  | indexed_assignment
   | exec_stmt
   | return_stmt
   | if_stmt
@@ -134,14 +139,18 @@ statement ::=
   | for_stmt
   | while_stmt
   | do_while_stmt
-  | expr_stmt
+  | echo_stmt
 
 var_decl ::= "var" identifier "=" expression
 array_decl ::= "var" identifier "[]" "=" "new" "var" "[]"
 
 assignment ::= identifier "=" expression
 
-exec_stmt ::= "exec" expression
+indexed_assignment ::= identifier "[" expression "]" "=" expression
+
+exec_stmt ::= "exec" call_expression
+
+echo_stmt ::= "echo" expression
 
 return_stmt ::= "return" expression
 
@@ -160,11 +169,17 @@ comparator ::= "==" | "!=" | ">" | "<" | ">=" | "<="
 expression ::=
     literal
   | identifier
-  | identifier "(" argument_list? ")"
+  | "`exec" call_expression "`"
   | identifier "[" expression "]"
   | identifier "->" identifier
   | expression operator expression
-  | "`exec" expression "`"
+
+call_expression ::= callable "(" argument_list? ")"
+
+callable ::= identifier
+           | identifier "->" identifier
+
+argument_list ::= expression ("," expression)*
 
 operator ::= "+" | "-" | "*" | "/" | "%"
 
@@ -175,41 +190,118 @@ number ::= digit+
 string ::= "\"" (any_char)* "\""
 
 ------------------------------------------------------------
+EXECUTION CONTEXT RULES (CRITICAL)
+------------------------------------------------------------
+
+There are TWO valid forms of exec usage:
+
+1. Expression exec (value-producing)
+
+- MUST use backticks.
+- Used when result is assigned, returned, or compared.
+
+2. Statement exec (side-effect only)
+
+- MUST NOT use backticks.
+- Used when result is NOT assigned.
+
+Direct function calls without exec are INVALID.
+
+------------------------------------------------------------
+BUILT-IN RUNTIME PRIMITIVES
+------------------------------------------------------------
+
+Built-in primitives:
+
+echo <expression>
+
+Rules:
+
+- echo is a native statement.
+- echo MUST NOT be wrapped in exec.
+- echo MUST NOT be defined as a function.
+- The identifier "print" is INVALID.
+
+------------------------------------------------------------
+GLOBAL SUBTASK FUNCTIONS (IMPLICIT RUNTIME)
+------------------------------------------------------------
+
+Hawk runtime automatically registers all methods annotated with @SubTask.
+
+These functions are globally available in Hawk DSL.
+
+They:
+
+- MUST be invoked using exec
+- DO NOT require alias
+- MUST NOT be redefined in the program
+- Are resolved dynamically by Hawk runtime
+
+The following global SubTask functions are guaranteed to exist:
+
+pow(x,y)
+sqrt(x)
+sin(x)
+cos(x)
+exp(x)
+abs(x)
+ceil(x)
+floor(x)
+log(x)
+scale(number,scale,roundingMode)
+
+length(arg)
+sort(array)
+
+currentTime()
+execute(command)
+dumpStack()
+
+charAt(input,index)
+compareTo(input,other)
+
+Direct invocation without exec is INVALID.
+
+------------------------------------------------------------
+BUILT-IN MODULES AND ALIAS
+------------------------------------------------------------
+
+Alias is optional and provides explicit module scoping.
+
+Example:
+alias mm = MathModule
+
+Optional usage:
+`exec mm->pow(x,y)`
+
+Rules:
+
+- alias MUST appear before any function.
+- alias MUST NOT appear inside a function.
+- Built-in modules MUST NOT be redefined.
+
+------------------------------------------------------------
+ARRAY SEMANTICS
+------------------------------------------------------------
+
+- Arrays are 1-based indexed.
+- Dynamic indexed assignment is allowed.
+- Example:
+  result[i] = value
+
+------------------------------------------------------------
 SEMANTIC RULES
 ------------------------------------------------------------
 
-1. Entry point MUST be:
-
-function main()
-
-2. All execution begins from main()
-
-3. All variables MUST be declared before use
-
-4. No undefined function calls
-
-5. Deterministic output only
-
-6. The program MUST correctly solve the user request.
-
-7. The returned value MUST represent the computed result of the request.
-
-8. Hardcoded placeholder values unrelated to the request are forbidden.
-
-9. The program MUST perform necessary computation steps to derive the result.
-
-10. Returning constant literals without computation is invalid unless explicitly requested.
-
-------------------------------------------------------------
-FORMAT RULES (STRICT)
-------------------------------------------------------------
-
-1. Every statement MUST be on its own line
-2. No trailing semicolons
-3. No compact formatting
-4. No C-style formatting
-5. Indentation must be consistent
-6. No extra blank text outside program
+1. Entry point MUST be function main()
+2. All variables MUST be declared before use
+3. All non-global functions MUST be defined in program
+4. Every function MUST return a value on all execution paths
+5. main() MUST return a value on all execution paths
+6. The program MUST correctly solve the user request
+7. The returned value MUST represent computed result
+8. Hardcoded placeholder values unrelated to request are forbidden
+9. Recursive or conditional calls MUST return their result
 
 ------------------------------------------------------------
 SELF-VALIDATION BEFORE OUTPUT
@@ -217,41 +309,26 @@ SELF-VALIDATION BEFORE OUTPUT
 
 Before emitting final program, verify:
 
-- No "++" exists
-- No "+=" exists
-- No "-=" exists
-- No "*=" exists
-- No "/=" exists
-- No statement ends with ";"
-- No brace appears on same line as function or control statement
+- No forbidden tokens exist
+- No direct function call exists without exec
+- No standalone exec is wrapped in backticks
+- No usage of identifier "print"
+- All alias declarations appear before first function
+- No alias appears inside a function block
+- Every function returns on all execution paths
+- main() returns on all execution paths
 
-If any forbidden token exists:
-Regenerate program using valid Hawk syntax.
-
-------------------------------------------------------------
-CANONICAL VALID STYLE
-------------------------------------------------------------
-
-function main()
-{
-    var sum = 0
-
-    for(var i = 1 ; i <= 5 ; i = i + 1)
-    {
-        sum = sum + i
-    }
-
-    return sum
-}
+If any violation exists:
+Regenerate program.
 
 ------------------------------------------------------------
 IF TASK IS IMPOSSIBLE
 ------------------------------------------------------------
 
-Emit minimal valid program:
-
 function main()
 {
+    echo "UNSUPPORTED_REQUEST"
+    return 0
 }
 
 ------------------------------------------------------------
