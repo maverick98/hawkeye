@@ -7,25 +7,39 @@ for(var i = 1 ; i<= #SIZE#;i = i+1)
 
       var j = i-1
       echo "START"+j+"START"
->	@SubTask(name = "bottom#FIELD# ", sequence = 1, ignoreException = false, hawkParam = "var innings,var #FIELDINSTANCE# ")
+>@SubTask(
+>    name = "bottom#FIELD#",
+>    sequence = 1,
+>    ignoreException = false,
+>    hawkParam = "var innings, var count",
+>    definition = "Returns the lowest 'count' #CLAZZ# records ordered ascending by #FIELD#. Arguments: (var innings?, var count?). If an innings set is provided as the first argument, selection is restricted to that set; otherwise the operation applies to all available #CLAZZ# records. If count is not provided, defaults to 10. Returns a new array without mutating input. Designed for composable ranking queries in Hawk DSL."
+>)
+
 >	public     #CLAZZ# [] bottom#FIELD# (Object ... args ){
 >
 >		Integer count = 10;
 >
->		#CLAZZ# []  tmpArray = this.sort#FIELD# (args);
+>		Set<#CLAZZ#> input = null;
+
+>		if(args.length >= 1 && args[0] != null){
+>    		input = (Set<#CLAZZ#>) args[0];
+>		}
+
+>		#CLAZZ# [] tmpArray = this.sort#FIELD#(input);
+
 >		
->                if( tmpArray == null){
+>       if( tmpArray == null){
 >			
 >			return null;
 >		}
->		if( args.length == 2 ){
->			count = (Integer)args[1];
+>		if(args.length >= 2 && args[1] != null){
+>			count = (Integer) args[1];
 >		}		
->
+>       count = Math.min(count, tmpArray.length);  
 >		#CLAZZ# [] result = new #CLAZZ# [count] ;
 >		
 >		for(int i=0;i<count;i++){
->			result[i] = tmpArray[tmpArray.length-i-1];
+>			result[i] = tmpArray[i];
 >		}		
 >
 >		return result;

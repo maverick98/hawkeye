@@ -7,12 +7,19 @@ for(var i = 1 ; i<= #SIZE#;i = i+1)
 
       var j = i-1
       echo "START"+j+"START"
->	@SubTask(name = "count#FIELD#", sequence = 1, ignoreException = false, hawkParam = "var innings")
+>@SubTask(
+>    name = "count#FIELD#",
+>    sequence = 1,
+>    ignoreException = false,
+>    hawkParam = "var innings",
+>    definition = "Counts the number of #CLAZZ# records associated with #FIELD#. Arguments: (var innings?). If an innings set is provided, counting is restricted to that set; otherwise the operation applies to all available #CLAZZ# records. Returns a deterministic integer result without mutating input. Designed for composable aggregation in Hawk DSL analytics."
+>)
+
 >	public     int count#FIELD# (Object ... args ){
 >
 >		Set<#CLAZZ#> input = null;
 >		
->		if ( args[0] != null){
+>		if(args.length >= 1 && args[0] != null){
 >
 >                	input  = (Set<#CLAZZ#> ) args[0];  
 >		}

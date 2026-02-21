@@ -107,18 +107,7 @@
             <version>2.23.1</version>
         </dependency>
 
-        <!-- JAXB (Java 21 compatible) -->
-        <dependency>
-            <groupId>jakarta.xml.bind</groupId>
-            <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>4.0.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.glassfish.jaxb</groupId>
-            <artifactId>jaxb-runtime</artifactId>
-            <version>4.0.4</version>
-        </dependency>
+      
 
         <!-- Jackson 2.x -->
         <dependency>
@@ -139,7 +128,24 @@
             <version>${jackson.version}</version>
         </dependency>
 
-     
+        <!-- JAXB for javax namespace (required by hawk-core) -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>2.3.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+            <version>1.2.2</version>
+        </dependency>
 
     </dependencies>
 

@@ -7,43 +7,55 @@ for(var i = 1 ; i<= #SIZE#;i = i+1)
 
       var j = i-1
       echo "START"+j+"START"
->	@SubTask(name = "variance#FIELD# ", sequence = 1, ignoreException = false, hawkParam = "var innings ")
->	public    double variance#FIELD# (Object ... args ){
+>@SubTask(
+>    name = "variance#FIELD#",
+>    sequence = 1,
+>    ignoreException = false,
+>    hawkParam = "var innings",
+>    definition = "Computes the population variance of #FIELD# across #CLAZZ# records. Arguments: (var innings?). If an innings set is provided, computation is restricted to that set; otherwise it applies to all available #CLAZZ# records. Uses E[X^2] - (E[X])^2 formulation with scale 2 and HALF_UP rounding. Returns a double value without mutating input. Designed for composable statistical aggregation in Hawk DSL analytics."
+>)
+>
+>	public double variance#FIELD#(Object ... args){
 >
 >		Set<#CLAZZ#> input = null;
->		
->		if ( args[0] != null){
 >
->                	input  = (Set<#CLAZZ#> ) args[0];  
+>		if(args.length >= 1 && args[0] != null){
+>			input = (Set<#CLAZZ#>) args[0];
 >		}
->		
 >
->		Set<#CLAZZ#> tmpSet = null;
+>		Set<#CLAZZ#> tmpSet;
 >
->		if(input != null && !input.isEmpty() ){
->			
+>		if(input != null && !input.isEmpty()){
 >			tmpSet = input;
 >		}else{
 >			tmpSet = this.get#CLAZZ#s().getAll();
 >		}
->		
->		int i =0;
+>
+>		int count = 0;
 >
 >		BigDecimal squaredTotal = BigDecimal.ZERO;
 >
->		double sqauredTotalAvg = 0.0;
+>		for(#CLAZZ# inning : tmpSet){
 >
->		for (#CLAZZ# inning : tmpSet) {
+>			BigDecimal value = new BigDecimal(inning.get#FIELD#());
 >
->		    squaredTotal = squaredTotal.add(new BigDecimal(inning.get#FIELD# () * inning.get#FIELD# ()));
->		    i++;
+>			squaredTotal = squaredTotal.add(value.multiply(value));
+>
+>			count++;
 >		}
 >
->		if (i > 0) {
->		    sqauredTotalAvg = squaredTotal.divide(new BigDecimal(i), 2, RoundingMode.HALF_UP).doubleValue();
+>		double squaredAvg = 0.0;
+>
+>		if(count > 0){
+>			squaredAvg =
+>				squaredTotal
+>					.divide(new BigDecimal(count), 2, RoundingMode.HALF_UP)
+>					.doubleValue();
 >		}
->		double avg = this.avg#FIELD# (args);
->		double variance =sqauredTotalAvg - (avg * avg);
+>
+>		double avg = this.avg#FIELD#(input);
+>
+>		double variance = squaredAvg - (avg * avg);
 >
 >		return variance;
 >	}

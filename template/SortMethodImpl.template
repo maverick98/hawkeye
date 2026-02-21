@@ -7,32 +7,36 @@ for(var i = 1 ; i<= #SIZE#;i = i+1)
 
       var j = i-1
       echo "START"+j+"START"
->	@SubTask(name = "sort#FIELD# ", sequence = 1, ignoreException = false, hawkParam = "var innings,var #FIELDINSTANCE# ")
->	public     #CLAZZ# [] sort#FIELD# (Object ... args ){
+>@SubTask(
+>    name = "sort#FIELD#",
+>    sequence = 1,
+>    ignoreException = false,
+>    hawkParam = "var innings",
+>    definition = "Returns #CLAZZ# records sorted ascending by #FIELD#. Arguments: (var innings?). If an innings set is provided, sorting is restricted to that set; otherwise the operation applies to all available #CLAZZ# records. Returns a new ordered array without mutating input. Designed for composable ordering in Hawk DSL analytics."
+>)
 >
->		if(args == null || args.length == 0){
->			return null;		
->		}
+>	public #CLAZZ#[] sort#FIELD#(Object ... args){
 >
 >		Set<#CLAZZ#> input = null;
->		
->		
->		input  = (Set<#CLAZZ#> ) args[0];  
 >
->		
+>		if(args.length >= 1 && args[0] != null){
+>			input = (Set<#CLAZZ#>) args[0];
+>		}
 >
+>		Set<#CLAZZ#> tmpSet;
 >
->		Set<#CLAZZ#> tmpSet = null;
->
->		if(input != null && !input.isEmpty() ){
->			
+>		if(input != null && !input.isEmpty()){
 >			tmpSet = input;
 >		}else{
 >			tmpSet = this.get#CLAZZ#s().getAll();
 >		}
->               Comparator<#CLAZZ#> cmp = java.util.Comparator.comparing(#CLAZZ#::get#FIELD#);
->               return tmpSet.stream().sorted(cmp).toArray(size->new #CLAZZ#[size]);
-
+>
+>		Comparator<#CLAZZ#> cmp =
+>			java.util.Comparator.comparing(#CLAZZ#::get#FIELD#);
+>
+>		return tmpSet.stream()
+>		             .sorted(cmp)
+>		             .toArray(size -> new #CLAZZ#[size]);
 >	}
       echo ""
 

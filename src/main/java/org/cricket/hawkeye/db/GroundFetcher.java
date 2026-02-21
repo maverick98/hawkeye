@@ -1,4 +1,4 @@
-/** This file was generated at Sat Feb 07 19:39:50 IST 2026*Don't you dare edit this file.You will regret it if you do!!!* This file is part of hawkeye* CopyLeft (C) BigBang<->BigCrunch
+/** This file was generated at Fri Feb 20 21:42:21 IST 2026*Don't you dare edit this file.You will regret it if you do!!!* This file is part of hawkeye* CopyLeft (C) BigBang<->BigCrunch
  * Manoranjan Sahu, All Rights are left.*
  */package org.cricket.hawkeye.db;
 
@@ -46,14 +46,13 @@ public class GroundFetcher extends HawkPluginModule {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @SubTask(name = "sortName ", sequence = 1, ignoreException = false, hawkParam = "var innings,var name ")
+    @SubTask(name = "sortName", sequence = 1, ignoreException = false, hawkParam = "var innings", definition = "Returns Ground records sorted ascending by Name. Arguments: (var innings?). If an innings set is provided, sorting is restricted to that set; otherwise the operation applies to all available Ground records. Returns a new ordered array without mutating input. Designed for composable ordering in Hawk DSL analytics.")
     public Ground[] sortName(Object... args) {
-        if (args == null || args.length == 0) {
-            return null;
-        }
         Set<Ground> input = null;
-        input = (Set<Ground>) args[0];
-        Set<Ground> tmpSet = null;
+        if (args.length >= 1 && args[0] != null) {
+            input = (Set<Ground>) args[0];
+        }
+        Set<Ground> tmpSet;
         if (input != null && !input.isEmpty()) {
             tmpSet = input;
         } else {
@@ -63,45 +62,39 @@ public class GroundFetcher extends HawkPluginModule {
         return tmpSet.stream().sorted(cmp).toArray(size -> new Ground[size]);
     }
 
-    @SubTask(name = "likeName ", sequence = 1, ignoreException = false, hawkParam = "var innings,var name ")
+    @SubTask(name = "likeName", sequence = 1, ignoreException = false, hawkParam = "var innings, var name", definition = "Filters Ground records where Name matches the provided pattern using like semantics. Arguments: (var innings?, var value). If an innings set is provided as the first argument, filtering is restricted to that set; otherwise the operation applies to all available Ground records. Returns a new result set without mutating input. Designed for composable query chaining in Hawk DSL.")
     public Set<Ground> likeName(Object... args) {
         Set<Ground> input = null;
         java.lang.String name = null;
-        if (args == null || args.length == 0) {
-            return null;
+        if (args.length >= 1 && args[0] != null) {
+            input = (Set<Ground>) args[0];
         }
-        if (args.length == 2) {
-            if (args[0] != null) {
-                input = (Set<Ground>) args[0];
-            }
-            if (args[1] != null) {
-                name = (java.lang.String) args[1];
-            }
-        } else if (args.length == 1) {
-            name = (java.lang.String) args[0];
+        if (args.length >= 2 && args[1] != null) {
+            name = (java.lang.String) args[1];
         }
         Ground otherGround = new Ground();
         otherGround.setName(name);
-        Set<Ground> result = new TreeSet<Ground>();
-        for (Ground ground : this.getGrounds().getAll()) {
-            if (ground.like(otherGround)) {
-                result.add(ground);
-            }
-        }
+        Set<Ground> baseSet;
         if (input != null && !input.isEmpty()) {
-            if (input.retainAll(result)) {
-                result = input;
-            } else {
-                result = new TreeSet<Ground>();
+            baseSet = input;
+        } else {
+            baseSet = this.getGrounds().getAll();
+        }
+        Set<Ground> result = new TreeSet<Ground>();
+        for (Ground ground : baseSet) {
+            if (1 == 1) {
+                if (ground.like(otherGround)) {
+                    result.add(ground);
+                }
             }
         }
         return result;
     }
 
-    @SubTask(name = "countCountry", sequence = 1, ignoreException = false, hawkParam = "var innings")
+    @SubTask(name = "countCountry", sequence = 1, ignoreException = false, hawkParam = "var innings", definition = "Counts the number of Ground records associated with Country. Arguments: (var innings?). If an innings set is provided, counting is restricted to that set; otherwise the operation applies to all available Ground records. Returns a deterministic integer result without mutating input. Designed for composable aggregation in Hawk DSL analytics.")
     public int countCountry(Object... args) {
         Set<Ground> input = null;
-        if (args[0] != null) {
+        if (args.length >= 1 && args[0] != null) {
             input = (Set<Ground>) args[0];
         }
         Set<Ground> tmpSet = null;
@@ -113,67 +106,51 @@ public class GroundFetcher extends HawkPluginModule {
         return (int) tmpSet.stream().count();
     }
 
-    @SubTask(name = "equalName ", sequence = 1, ignoreException = false, hawkParam = "var innings,var name ")
+    @SubTask(name = "equalName", sequence = 1, ignoreException = false, hawkParam = "var innings, var name", definition = "Filters Ground records where Name equals the provided value. Arguments: (var innings?, var value). If an innings set is provided as the first argument, filtering is restricted to that set; otherwise the operation applies to all available Ground records. Returns a new result set without mutating input. Designed for composable query chaining in Hawk DSL.")
     public Set<Ground> equalName(Object... args) {
         Set<Ground> input = null;
         java.lang.String name = null;
-        if (args == null || args.length == 0) {
-            return null;
+        if (args.length >= 1 && args[0] != null) {
+            input = (Set<Ground>) args[0];
         }
-        if (args.length == 2) {
-            if (args[0] != null) {
-                input = (Set<Ground>) args[0];
-            }
-            if (args[1] != null) {
-                name = (java.lang.String) args[1];
-            }
-        } else if (args.length == 1) {
-            name = (java.lang.String) args[0];
+        if (args.length >= 2 && args[1] != null) {
+            name = (java.lang.String) args[1];
         }
         Set<Ground> result = new TreeSet<Ground>();
-        for (Ground ground : this.getGrounds().getAll()) {
+        Set<Ground> baseSet;
+        if (input != null && !input.isEmpty()) {
+            baseSet = input;
+        } else {
+            baseSet = this.getGrounds().getAll();
+        }
+        for (Ground ground : baseSet) {
             if (ground.getName().equals(name)) {
                 result.add(ground);
-            }
-        }
-        if (input != null && !input.isEmpty()) {
-            if (input.retainAll(result)) {
-                result = input;
-            } else {
-                result = new TreeSet<Ground>();
             }
         }
         return result;
     }
 
-    @SubTask(name = "equalCountry ", sequence = 1, ignoreException = false, hawkParam = "var innings,var country ")
+    @SubTask(name = "equalCountry", sequence = 1, ignoreException = false, hawkParam = "var innings, var country", definition = "Filters Ground records where Country equals the provided value. Arguments: (var innings?, var value). If an innings set is provided as the first argument, filtering is restricted to that set; otherwise the operation applies to all available Ground records. Returns a new result set without mutating input. Designed for composable query chaining in Hawk DSL.")
     public Set<Ground> equalCountry(Object... args) {
         Set<Ground> input = null;
         org.cricket.hawkeye.db.Country country = null;
-        if (args == null || args.length == 0) {
-            return null;
+        if (args.length >= 1 && args[0] != null) {
+            input = (Set<Ground>) args[0];
         }
-        if (args.length == 2) {
-            if (args[0] != null) {
-                input = (Set<Ground>) args[0];
-            }
-            if (args[1] != null) {
-                country = (org.cricket.hawkeye.db.Country) args[1];
-            }
-        } else if (args.length == 1) {
-            country = (org.cricket.hawkeye.db.Country) args[0];
+        if (args.length >= 2 && args[1] != null) {
+            country = (org.cricket.hawkeye.db.Country) args[1];
         }
         Set<Ground> result = new TreeSet<Ground>();
-        for (Ground ground : this.getGrounds().getAll()) {
+        Set<Ground> baseSet;
+        if (input != null && !input.isEmpty()) {
+            baseSet = input;
+        } else {
+            baseSet = this.getGrounds().getAll();
+        }
+        for (Ground ground : baseSet) {
             if (ground.getCountry().equals(country)) {
                 result.add(ground);
-            }
-        }
-        if (input != null && !input.isEmpty()) {
-            if (input.retainAll(result)) {
-                result = input;
-            } else {
-                result = new TreeSet<Ground>();
             }
         }
         return result;

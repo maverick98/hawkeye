@@ -7,7 +7,14 @@ for(var i = 1 ; i<= #SIZE#;i = i+1)
 
       var j = i-1
       echo "START"+j+"START"
->	@SubTask(name = "before#FIELD# ", sequence = 1, ignoreException = false, hawkParam = "var innings,var #FIELDINSTANCE# ")
+>@SubTask(
+>    name = "before#FIELD#",
+>    sequence = 1,
+>    ignoreException = false,
+>    hawkParam = "var innings, var #FIELDINSTANCE#",
+>    definition = "Filters #CLAZZ# records where #FIELD# occurs strictly before the provided value. Arguments: (var innings?, var value). If an innings set is provided as the first argument, filtering is restricted to that set; otherwise the operation applies to all available #CLAZZ# records. Returns a new result set without mutating the input. Designed for composable query chaining in Hawk DSL."
+>)
+
 >	public     Set<#CLAZZ#> before#FIELD# (Object ... args ){
 >
 >
@@ -50,11 +57,7 @@ for(var i = 1 ; i<= #SIZE#;i = i+1)
 >		}
 >
 >		if(input != null && !input.isEmpty() ){
->			if(input.retainAll(result)){
->				result = input;
->			}else{
->				result = new TreeSet<#CLAZZ#>();
->			}
+>			result.retainAll(input);
 >			
 >		}
 >		return result;

@@ -1,4 +1,4 @@
-/** This file was generated at Sat Feb 07 19:39:50 IST 2026*Don't you dare edit this file.You will regret it if you do!!!* This file is part of hawkeye* CopyLeft (C) BigBang<->BigCrunch
+/** This file was generated at Fri Feb 20 21:42:21 IST 2026*Don't you dare edit this file.You will regret it if you do!!!* This file is part of hawkeye* CopyLeft (C) BigBang<->BigCrunch
  * Manoranjan Sahu, All Rights are left.*
  */package org.cricket.hawkeye.db;
 
@@ -52,14 +52,7 @@ public class Inning extends org.cricket.hawkeye.values.inning.Inning implements 
         this.setBallFaced((java.lang.Integer) in.readObject());
         this.setFours((java.lang.Integer) in.readObject());
         this.setSixes((java.lang.Integer) in.readObject());
-        Object obj = in.readObject();
-
-        if (obj instanceof Float) {
-            this.strikeRate = ((Float) obj).doubleValue();
-        } else if (obj instanceof Double) {
-            this.strikeRate = (Double) obj;
-        }
-
+        this.setStrikeRate((java.lang.Double) in.readObject());
         this.setPositions((java.lang.Integer) in.readObject());
         this.setDismissalType((org.cricket.hawkeye.codegen.constant.DismissalType) in.readObject());
         this.setInnings((java.lang.Integer) in.readObject());
